@@ -14,6 +14,8 @@ namespace AbilityChanger {
         public static Dictionary<string,AbilityManager> AbilityMap = new(){
             {Dreamgate.abilityName,new Dreamgate()},
             {CycloneSlash.abilityName,new CycloneSlash()},
+            {GreatSlash.abilityName,new GreatSlash()},
+            {DashSlash.abilityName,new DashSlash()}
         };
         public override void Initialize()
         {

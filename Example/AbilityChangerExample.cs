@@ -78,6 +78,53 @@ namespace AbilityChangerExample {
         }
 
     }
+
+    public class flowerPlanter3 : Ability{
+        static string name = "flower_planter3";
+        static string title = "White Flower";
+        static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as great slash.";
+        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+        public flowerPlanter3() : base (flowerPlanter3.name,flowerPlanter3.title,flowerPlanter3.description,flowerPlanter3.getActiveSprite(),flowerPlanter3.getInactiveSprite()){
+
+        }
+        
+        public Coroutine coroutine;
+        public IEnumerator StopPlanting(){
+            yield return new WaitForSeconds(5f);
+            GameManager.instance.StopCoroutine(coroutine);
+        }
+        public IEnumerator Planting(){
+            while(true){
+                AbilityChangerExample.plantFlower(1); 
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
+             
+            AbilityChangerExample.plantFlower(1); 
+            coroutine = GameManager.instance.StartCoroutine(Planting());
+            GameManager.instance.StartCoroutine(StopPlanting());
+
+        }
+
+    }
+
+    
+    public class flowerPlanter4 : Ability{
+        static string name = "flower_planter4";
+        static string title = "White Flower 2";
+        static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as Dash slash.";
+        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+        public flowerPlanter4() : base (flowerPlanter4.name,flowerPlanter4.title,flowerPlanter4.description,flowerPlanter4.getActiveSprite(),flowerPlanter4.getInactiveSprite()){
+
+        }
+        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
+            AbilityChangerExample.plantFlower(1); 
+        }
+
+    }
     public class AbilityChangerExample : Mod
     {
         public static GameObject flower,flower2,flower3;
@@ -118,6 +165,8 @@ namespace AbilityChangerExample {
             AbilityMap[Dreamgate.abilityName].addAbility(new greenflowerPlanter());
             AbilityMap[Dreamgate.abilityName].addAbility(new redflowerPlanter());
             AbilityMap[CycloneSlash.abilityName].addAbility(new redflowerCyclone());
+            AbilityMap[GreatSlash.abilityName].addAbility(new flowerPlanter3());
+            AbilityMap[DashSlash.abilityName].addAbility(new flowerPlanter4());
 
         }
 
