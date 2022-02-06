@@ -52,7 +52,7 @@ namespace AbilityChangerExample {
     public class redflowerCyclone : Ability{
         static string name = "flower_cyclone2";
         static string title = "Red Flower";
-        static string description = "Ability to furiusly plant pretty flowers around where you stand. Use it in the same way as a cyclone slash.";
+        static string description = "Ability to furiously plant pretty flowers around where you stand. Use it in the same way as a cyclone slash.";
         static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower2.png");}
         static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
         public redflowerCyclone() : base (redflowerCyclone.name,redflowerCyclone.title,redflowerCyclone.description,redflowerCyclone.getActiveSprite(),redflowerCyclone.getInactiveSprite()){
@@ -74,7 +74,7 @@ namespace AbilityChangerExample {
             AbilityChangerExample.plantFlower(2); 
             coroutine = GameManager.instance.StartCoroutine(Planting());
             GameManager.instance.StartCoroutine(StopPlanting());
-            
+
         }
 
     }
