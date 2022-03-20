@@ -8,6 +8,7 @@ using UnityEngine;
 
 using static Satchel.FsmUtil;
 using static Satchel.GameObjectUtils;
+using Satchel.Futils;
 
 namespace AbilityChanger {
     public class CycloneSlash : AbilityManager {
@@ -23,21 +24,25 @@ namespace AbilityChanger {
             orig(self);
             if (self.gameObject.name == "Knight" && self.FsmName == "Nail Arts")
             {
-                self.InterceptTransition(
-                    new Interceptor((AbilityManager)this,
-                        new InterceptorParams{
-                            fromState ="Flash",
-                            eventName ="FINISHED",
-                            toStateDefault="Cyclone Start",
-                            toStateCustom="Regain Control"
-                        }));
+                self.Intercept(new TransitionInterceptor(){
+                    fromState ="Flash",
+                    eventName ="FINISHED",
+                    toStateDefault="Cyclone Start",
+                    toStateCustom="Regain Control",
+                    shouldIntercept = () => this.isCustom(),
+                    onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
+                });
 
             }
             if (self.gameObject.name == "Inv" && self.FsmName == "UI Inventory")
             {
-                self.EventInterceptor("Cyclone","UI CONFIRM",() => {
-                    currentlySelected= nextAbility().name;
-                    updateInventory();
+                self.Intercept(new EventInterceptor(){
+                    fromState = "Cyclone",
+                    eventName = "UI CONFIRM",
+                    onIntercept = () => {
+                        currentlySelected= nextAbility().name;
+                        updateInventory();
+                    }
                 });
             }
         }

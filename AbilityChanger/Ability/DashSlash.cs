@@ -8,6 +8,7 @@ using UnityEngine;
 
 using static Satchel.FsmUtil;
 using static Satchel.GameObjectUtils;
+using Satchel.Futils;
 
 namespace AbilityChanger {
     public class DashSlash : AbilityManager {
@@ -23,21 +24,25 @@ namespace AbilityChanger {
             orig(self);
             if (self.gameObject.name == "Knight" && self.FsmName == "Nail Arts")
             {
-                self.InterceptTransition(
-                    new Interceptor((AbilityManager)this,
-                        new InterceptorParams{
-                            fromState ="Dash Slash Ready",
-                            eventName ="DASH END",
-                            toStateDefault="DSlash Start",
-                            toStateCustom="Regain Control"
-                        }));
+                self.Intercept(new TransitionInterceptor(){
+                    fromState ="Dash Slash Ready",
+                    eventName ="DASH END",
+                    toStateDefault="DSlash Start",
+                    toStateCustom="Regain Control",
+                    shouldIntercept = () => this.isCustom(),
+                    onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
+                });
 
             }
             if (self.gameObject.name == "Inv" && self.FsmName == "UI Inventory")
             {
-                self.EventInterceptor("Uppercut","UI CONFIRM",() => {
-                    currentlySelected= nextAbility().name;
-                    updateInventory();
+                self.Intercept(new EventInterceptor(){
+                    fromState = "Uppercut",
+                    eventName = "UI CONFIRM",
+                    onIntercept = () => {
+                        currentlySelected= nextAbility().name;
+                        updateInventory();
+                    }
                 });
             }
         }
