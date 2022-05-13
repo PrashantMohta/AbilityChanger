@@ -61,7 +61,7 @@ namespace AbilityChangerExample {
         public Coroutine coroutine;
         public IEnumerator StopPlanting(){
             yield return new WaitForSeconds(2f);
-            GameManager.instance.StopCoroutine(coroutine);
+            CoroutineHelper.GetRunner().StopCoroutine(coroutine);
         }
         public IEnumerator Planting(){
             while(true){
@@ -72,8 +72,8 @@ namespace AbilityChangerExample {
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){
             
             AbilityChangerExample.plantFlower(2); 
-            coroutine = GameManager.instance.StartCoroutine(Planting());
-            GameManager.instance.StartCoroutine(StopPlanting());
+            coroutine = CoroutineHelper.GetRunner().StartCoroutine(Planting());
+            CoroutineHelper.GetRunner().StartCoroutine(StopPlanting());
 
         }
 
@@ -92,7 +92,7 @@ namespace AbilityChangerExample {
         public Coroutine coroutine;
         public IEnumerator StopPlanting(){
             yield return new WaitForSeconds(5f);
-            GameManager.instance.StopCoroutine(coroutine);
+            CoroutineHelper.GetRunner().StopCoroutine(coroutine);
         }
         public IEnumerator Planting(){
             while(true){
@@ -103,8 +103,8 @@ namespace AbilityChangerExample {
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){
              
             AbilityChangerExample.plantFlower(1); 
-            coroutine = GameManager.instance.StartCoroutine(Planting());
-            GameManager.instance.StartCoroutine(StopPlanting());
+            coroutine = CoroutineHelper.GetRunner().StartCoroutine(Planting());
+            CoroutineHelper.GetRunner().StartCoroutine(StopPlanting());
 
         }
 
