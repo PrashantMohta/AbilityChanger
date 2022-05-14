@@ -33,10 +33,5 @@ namespace AbilityChanger {
         }
         public override GameObject getIconGo() => InvGo.Find("Dash Cloak");
 
-        public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)
-        {
-            orig(self);
-        }
-
     }
 }

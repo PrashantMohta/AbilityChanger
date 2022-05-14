@@ -33,10 +33,5 @@ namespace AbilityChanger {
         }
         public override GameObject getIconGo() => InvGo.Find("Double Jump");
 
-        public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)
-        {
-            orig(self);
-        }
-
     }
 }

@@ -64,7 +64,9 @@ namespace AbilityChanger {
 
         }
         public abstract GameObject getIconGo();
-        public abstract void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self);
+        public virtual void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self){
+            orig(self);
+        }
 
         public virtual void updateIcon(GameObject icon){
             var currentAbility = getAbility();
