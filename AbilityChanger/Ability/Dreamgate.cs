@@ -12,11 +12,12 @@ using Satchel.Futils;
 
 namespace AbilityChanger {
     public class Dreamgate : AbilityManager {
+        // wont actually be usable till atleast 1 dreamNail ability is also acquired
        
         public static string abilityName = "Dream Gate";
-        private static string inventoryTitleKey = "INV_NAME_DREAMGATE";
-        private static string inventoryDescKey = "INV_DESC_DREAMGATE";
-        public Dreamgate() : base (Dreamgate.abilityName,Dreamgate.inventoryTitleKey,Dreamgate.inventoryDescKey){}
+        private static new string inventoryTitleKey = "INV_NAME_DREAMGATE";
+        private static new string inventoryDescKey = "INV_DESC_DREAMGATE";
+        public Dreamgate() : base (Dreamgate.abilityName,Dreamgate.inventoryTitleKey,Dreamgate.inventoryDescKey,() => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDreamGate)){}
         public override GameObject getIconGo() => InvGo.Find("Dream Gate");
 
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)

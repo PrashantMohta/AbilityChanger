@@ -14,9 +14,9 @@ namespace AbilityChanger {
     public class CycloneSlash : AbilityManager {
        
         public static string abilityName = "Cyclone Slash";
-        private static string inventoryTitleKey = "INV_NAME_ART_CYCLONE";
-        private static string inventoryDescKey = "INV_DESC_ART_CYCLONE";
-        public CycloneSlash() : base (CycloneSlash.abilityName,CycloneSlash.inventoryTitleKey,CycloneSlash.inventoryDescKey){}
+        private static new string inventoryTitleKey = "INV_NAME_ART_CYCLONE";
+        private static new string inventoryDescKey = "INV_DESC_ART_CYCLONE";
+        public CycloneSlash() : base (CycloneSlash.abilityName,CycloneSlash.inventoryTitleKey,CycloneSlash.inventoryDescKey,() => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasCyclone)){}
         public override GameObject getIconGo() => InvGo.Find("Art Cyclone");
 
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)

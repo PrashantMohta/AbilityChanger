@@ -14,9 +14,9 @@ namespace AbilityChanger {
     public class DashSlash : AbilityManager {
        
         public static string abilityName = "Dash Slash";
-        private static string inventoryTitleKey = "INV_NAME_ART_UPPER";
-        private static string inventoryDescKey = "INV_DESC_ART_UPPER";
-        public DashSlash() : base (DashSlash.abilityName,DashSlash.inventoryTitleKey,DashSlash.inventoryDescKey){}
+        private static new string inventoryTitleKey = "INV_NAME_ART_UPPER";
+        private static new string inventoryDescKey = "INV_DESC_ART_UPPER";
+        public DashSlash() : base (DashSlash.abilityName,DashSlash.inventoryTitleKey,DashSlash.inventoryDescKey,() => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasUpwardSlash)){}        
         public override GameObject getIconGo() => InvGo.Find("Art Uppercut");
 
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)

@@ -17,7 +17,9 @@ namespace AbilityChangerExample {
         static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as setting a dream gate.";
         static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower3.png");}
         static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        public greenflowerPlanter() : base (greenflowerPlanter.name,greenflowerPlanter.title,greenflowerPlanter.description,greenflowerPlanter.getActiveSprite(),greenflowerPlanter.getInactiveSprite()){
+        
+        static Func<bool> hasAbility = () => true;
+        public greenflowerPlanter() : base (greenflowerPlanter.name,greenflowerPlanter.title,greenflowerPlanter.description,greenflowerPlanter.getActiveSprite(),greenflowerPlanter.getInactiveSprite(),greenflowerPlanter.hasAbility){
 
         }
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){ 
@@ -36,7 +38,8 @@ namespace AbilityChangerExample {
         static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as setting a dream gate.";
         static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower2.png");}
         static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        public redflowerPlanter() : base (redflowerPlanter.name,redflowerPlanter.title,redflowerPlanter.description,redflowerPlanter.getActiveSprite(),redflowerPlanter.getInactiveSprite()){
+        static Func<bool> hasAbility = () => true;
+        public redflowerPlanter() : base (redflowerPlanter.name,redflowerPlanter.title,redflowerPlanter.description,redflowerPlanter.getActiveSprite(),redflowerPlanter.getInactiveSprite(),redflowerPlanter.hasAbility){
 
         }
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){
@@ -55,7 +58,8 @@ namespace AbilityChangerExample {
         static string description = "Ability to furiously plant pretty flowers around where you stand. Use it in the same way as a cyclone slash.";
         static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower2.png");}
         static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        public redflowerCyclone() : base (redflowerCyclone.name,redflowerCyclone.title,redflowerCyclone.description,redflowerCyclone.getActiveSprite(),redflowerCyclone.getInactiveSprite()){
+        static Func<bool> hasAbility = () => true;
+        public redflowerCyclone() : base (redflowerCyclone.name,redflowerCyclone.title,redflowerCyclone.description,redflowerCyclone.getActiveSprite(),redflowerCyclone.getInactiveSprite(),redflowerCyclone.hasAbility){
 
         }
         public Coroutine coroutine;
@@ -85,7 +89,8 @@ namespace AbilityChangerExample {
         static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as great slash.";
         static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
         static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        public flowerPlanter3() : base (flowerPlanter3.name,flowerPlanter3.title,flowerPlanter3.description,flowerPlanter3.getActiveSprite(),flowerPlanter3.getInactiveSprite()){
+        static Func<bool> hasAbility = () => true;
+        public flowerPlanter3() : base (flowerPlanter3.name,flowerPlanter3.title,flowerPlanter3.description,flowerPlanter3.getActiveSprite(),flowerPlanter3.getInactiveSprite(),flowerPlanter3.hasAbility){
 
         }
         
@@ -117,7 +122,9 @@ namespace AbilityChangerExample {
         static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as Dash slash.";
         static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
         static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        public flowerPlanter4() : base (flowerPlanter4.name,flowerPlanter4.title,flowerPlanter4.description,flowerPlanter4.getActiveSprite(),flowerPlanter4.getInactiveSprite()){
+
+        static Func<bool> hasAbility = () => true;
+        public flowerPlanter4() : base (flowerPlanter4.name,flowerPlanter4.title,flowerPlanter4.description,flowerPlanter4.getActiveSprite(),flowerPlanter4.getInactiveSprite(),flowerPlanter4.hasAbility){
 
         }
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){
@@ -164,7 +171,7 @@ namespace AbilityChangerExample {
 
             AbilityMap[Dreamgate.abilityName].addAbility(new greenflowerPlanter());
             AbilityMap[Dreamgate.abilityName].addAbility(new redflowerPlanter());
-            AbilityMap[CycloneSlash.abilityName].addAbility(new redflowerCyclone());
+            //AbilityMap[CycloneSlash.abilityName].addAbility(new redflowerCyclone());
             AbilityMap[GreatSlash.abilityName].addAbility(new flowerPlanter3());
             AbilityMap[DashSlash.abilityName].addAbility(new flowerPlanter4());
 

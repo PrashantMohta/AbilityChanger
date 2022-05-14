@@ -14,9 +14,9 @@ namespace AbilityChanger {
     public class GreatSlash : AbilityManager {
        
         public static string abilityName = "Great Slash";
-        private static string inventoryTitleKey = "INV_NAME_ART_DASH";
-        private static string inventoryDescKey = "INV_DESC_ART_DASH";
-        public GreatSlash() : base (GreatSlash.abilityName,GreatSlash.inventoryTitleKey,GreatSlash.inventoryDescKey){}
+        private static new string inventoryTitleKey = "INV_NAME_ART_DASH";
+        private static new string inventoryDescKey = "INV_DESC_ART_DASH";
+        public GreatSlash() : base (GreatSlash.abilityName,GreatSlash.inventoryTitleKey,GreatSlash.inventoryDescKey,() => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDashSlash)){}
         public override GameObject getIconGo() => InvGo.Find("Art Dash");
 
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)
