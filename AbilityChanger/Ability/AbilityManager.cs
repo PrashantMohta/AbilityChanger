@@ -12,7 +12,7 @@ using static Satchel.GameObjectUtils;
 namespace AbilityChanger {
     public abstract class AbilityManager{
         protected List<Ability> options;
-        protected string currentlySelected;
+        internal string currentlySelected;
         protected GameObject InvGo;    
         protected string inventoryTitleKey, inventoryDescKey;
         public void addAbility(Ability ability){
@@ -118,7 +118,7 @@ namespace AbilityChanger {
                 });
             }
         }
-        protected void updateInventory(){
+        public void updateInventory(){
             updateText();
             var icon = getIconGo();
             if(icon != null){

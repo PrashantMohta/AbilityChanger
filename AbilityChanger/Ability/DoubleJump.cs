@@ -36,17 +36,6 @@ namespace AbilityChanger {
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)
         {
             orig(self);
-            if (self.gameObject.name == "Inv" && self.FsmName == "UI Inventory")
-            {
-                self.Intercept(new EventInterceptor(){
-                    fromState = "Equip Item 4",
-                    eventName = "UI CONFIRM",
-                    onIntercept = () => {
-                        currentlySelected= nextAbility().name;
-                        updateInventory();
-                    }
-                });
-            }
         }
 
     }

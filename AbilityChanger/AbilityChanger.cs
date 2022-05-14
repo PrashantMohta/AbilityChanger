@@ -22,6 +22,7 @@ namespace AbilityChanger {
         public override void Initialize()
         {
             ModHooks.GetPlayerBoolHook += PlayerDataPatcher.OnGetPlayerBoolHook;
+            On.PlayMakerFSM.OnEnable += Equipment.OnFsmEnable;
         }
 
     }

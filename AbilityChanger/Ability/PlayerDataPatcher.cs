@@ -11,8 +11,15 @@ namespace AbilityChanger {
         internal static string hasDreamGate = nameof(PlayerData.hasDreamGate);
         internal static string canDash = nameof(PlayerData.canDash);
         internal static string hasDash = nameof(PlayerData.hasDash);
+        internal static string hasWalljump = nameof(PlayerData.hasWalljump);
+        internal static string hasSuperDash = nameof(PlayerData.hasSuperDash);
         internal static string hasDoubleJump = nameof(PlayerData.hasDoubleJump);
+        internal static string hasAcidArmour = nameof(PlayerData.hasAcidArmour);
+        internal static string hasLantern = nameof(PlayerData.hasLantern);
         static PlayerDataPatcher(){
+        }
+        public static bool GetBool(string name){
+            return PlayerData.instance.GetBool(name);
         }
         public static bool GetBoolInternal(string name){
             return PlayerData.instance.GetBoolInternal(name);
