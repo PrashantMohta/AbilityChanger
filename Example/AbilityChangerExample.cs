@@ -132,6 +132,59 @@ namespace AbilityChangerExample {
         }
 
     }
+
+    public class teleport : Ability{
+        static string name = "Teleport";
+        static string title = "Teleport";
+        static string description = "Ability to Teleport.";
+        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+
+        static Func<bool> hasAbility = () => true;
+        public teleport() : base (teleport.name,teleport.title,teleport.description,teleport.getActiveSprite(),teleport.getInactiveSprite(),teleport.hasAbility){
+
+        }
+        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
+            var looking_right = HeroController.instance.transform.localScale.x > 0;
+            var pos = HeroController.instance.transform.position;
+            pos.x += looking_right ? -3f : 3f;
+            HeroController.instance.transform.position = pos;
+            Satchel.Reflected.HeroControllerR.FinishedDashing();
+        }
+
+    }
+
+    
+    public class superJump : Ability{
+        static string name = "superJump";
+        static string title = "superJump";
+        static string description = "Ability to superJump.";
+        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+
+        static Func<bool> hasAbility = () => true;
+        public superJump() : base (superJump.name,superJump.title,superJump.description,superJump.getActiveSprite(),superJump.getInactiveSprite(),superJump.hasAbility){
+
+        }
+        private bool routineRunning = false;
+        public IEnumerator hover(){
+            var rb2d = HeroController.instance.GetComponent<Rigidbody2D>();
+            /*var pos = HeroController.instance.transform.position;
+            pos.y += 0.1f;
+            HeroController.instance.transform.position = pos;*/            
+            yield return rb2d.moveTowards(new Vector2(0,1f),3f,0.1f);
+            
+            yield return null;
+            Satchel.Reflected.HeroControllerR.CancelDoubleJump();
+            routineRunning = false;
+        }
+        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
+            if(!routineRunning){
+                CoroutineHelper.GetRunner().StartCoroutine(hover());
+            }
+        }
+
+    }
     public class AbilityChangerExample : Mod
     {
         public static GameObject flower,flower2,flower3;
@@ -174,7 +227,8 @@ namespace AbilityChangerExample {
             //AbilityMap[CycloneSlash.abilityName].addAbility(new redflowerCyclone());
             AbilityMap[GreatSlash.abilityName].addAbility(new flowerPlanter3());
             AbilityMap[DashSlash.abilityName].addAbility(new flowerPlanter4());
-
+            AbilityMap[Dash.abilityName].addAbility(new teleport());
+            AbilityMap[DoubleJump.abilityName].addAbility(new superJump());
         }
 
         public static void plantFlower(int DreamnailType = 0){

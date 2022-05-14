@@ -15,10 +15,13 @@ namespace AbilityChanger {
             {Dreamgate.abilityName,new Dreamgate()},
             {CycloneSlash.abilityName,new CycloneSlash()},
             {GreatSlash.abilityName,new GreatSlash()},
-            {DashSlash.abilityName,new DashSlash()}
+            {DashSlash.abilityName,new DashSlash()},
+            {Dash.abilityName,new Dash()},
+            {DoubleJump.abilityName,new DoubleJump()}
         };
         public override void Initialize()
         {
+            ModHooks.GetPlayerBoolHook += PlayerDataPatcher.OnGetPlayerBoolHook;
         }
 
     }

@@ -9,9 +9,10 @@ namespace AbilityChanger {
         internal static string hasDashSlash = nameof(PlayerData.hasDashSlash); //tc weirdness
         internal static string hasDreamNail = nameof(PlayerData.hasDreamNail);
         internal static string hasDreamGate = nameof(PlayerData.hasDreamGate);
-
+        internal static string canDash = nameof(PlayerData.canDash);
+        internal static string hasDash = nameof(PlayerData.hasDash);
+        internal static string hasDoubleJump = nameof(PlayerData.hasDoubleJump);
         static PlayerDataPatcher(){
-            ModHooks.GetPlayerBoolHook += OnGetPlayerBoolHook;
         }
         public static bool GetBoolInternal(string name){
             return PlayerData.instance.GetBoolInternal(name);
@@ -38,6 +39,12 @@ namespace AbilityChanger {
             }
             if(name == hasDreamGate){
                 return AbilityChanger.AbilityMap[Dreamgate.abilityName].hasAcquiredAbility(); 
+            }
+            if(name == hasDash || name == canDash){
+                return AbilityChanger.AbilityMap[Dash.abilityName].hasAcquiredAbility(); 
+            }
+            if(name == hasDoubleJump){
+                return AbilityChanger.AbilityMap[DoubleJump.abilityName].hasAcquiredAbility();
             }
             return orig;
         }

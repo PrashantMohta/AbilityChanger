@@ -67,23 +67,34 @@ namespace AbilityChanger {
         public abstract void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self);
 
         public virtual void updateIcon(GameObject icon){
-            var itemdisplay = icon.GetComponent<InvItemDisplay>();
             var currentAbility = getAbility();
             var defaultAbility = getDefaultAbility();
-            if(defaultAbility.activeSprite == null){
-                defaultAbility.activeSprite = itemdisplay.activeSprite;
-            }
-            if(defaultAbility.inactiveSprite == null){
-                defaultAbility.inactiveSprite = itemdisplay.inactiveSprite;
-            }
-            if(currentAbility.activeSprite != null){
+            var itemdisplay = icon.GetComponent<InvItemDisplay>();
+            if(itemdisplay != null){
+                if(defaultAbility.activeSprite == null){
+                    defaultAbility.activeSprite = itemdisplay.activeSprite;
+                }
+                if(defaultAbility.inactiveSprite == null){
+                    defaultAbility.inactiveSprite = itemdisplay.inactiveSprite;
+                }
+                if(currentAbility.activeSprite != null){
+                    
+                    itemdisplay.activeSprite = currentAbility.activeSprite;
+                }
+                if(currentAbility.inactiveSprite != null){
+                    itemdisplay.inactiveSprite = currentAbility.inactiveSprite;
+                }
                 
-                itemdisplay.activeSprite = currentAbility.activeSprite;
+                itemdisplay.SendMessage("OnEnable");
+            } else {
+                var spriteRenderer = icon.GetComponent<SpriteRenderer>();
+                if(defaultAbility.activeSprite == null){
+                    defaultAbility.activeSprite = spriteRenderer.sprite;
+                }
+                if(currentAbility.activeSprite != null){
+                    spriteRenderer.sprite = currentAbility.activeSprite;
+                }
             }
-            if(currentAbility.inactiveSprite != null){
-                itemdisplay.inactiveSprite = currentAbility.inactiveSprite;
-            }
-            itemdisplay.SendMessage("OnEnable");
         }
 
         private void updateText(){
@@ -128,7 +139,7 @@ namespace AbilityChanger {
             }
             return orig;
         }
-        public void handleAbilityUse(string interceptedState,string interceptedEvent){
+        public void handleAbilityUse(string interceptedState = "",string interceptedEvent = ""){
             getAbility().handleAbilityUse(interceptedState,interceptedEvent);
         }
 
