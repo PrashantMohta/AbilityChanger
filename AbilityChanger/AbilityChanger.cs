@@ -17,7 +17,8 @@ namespace AbilityChanger {
             {GreatSlash.abilityName,new GreatSlash()},
             {DashSlash.abilityName,new DashSlash()},
             {Dash.abilityName,new Dash()},
-            {DoubleJump.abilityName,new DoubleJump()}
+            {DoubleJump.abilityName,new DoubleJump()},
+            {WallJump.abilityName,new WallJump()}
         };
         public override void Initialize()
         {

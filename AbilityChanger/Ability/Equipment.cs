@@ -20,7 +20,7 @@ namespace AbilityChanger {
                count++;
            } 
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasWalljump)){
-               //IndexToAbility[count] = AbilityChanger.AbilityMap[Walljump.abilityName];
+               IndexToAbility[count] = AbilityChanger.AbilityMap[WallJump.abilityName];
                count++;
            } 
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasSuperDash)){

@@ -185,6 +185,55 @@ namespace AbilityChangerExample {
         }
 
     }
+
+    public class wallSlide : Ability{
+        static string name = "wallSlide";
+        static string title = "wallSlide";
+        static string description = "Ability to wallSlide.";
+        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
+
+        static Func<bool> hasAbility = () => true;
+        public wallSlide() : base (wallSlide.name,wallSlide.title,wallSlide.description,wallSlide.getActiveSprite(),wallSlide.getInactiveSprite(),wallSlide.hasAbility){
+
+        }
+        private bool routineRunning = false;
+        public IEnumerator slide(){
+            var rb2d = HeroController.instance.GetComponent<Rigidbody2D>(); 
+            yield return rb2d.moveTowards(new Vector2(0,1f),5f,0.1f);
+            routineRunning = false;
+            Satchel.Reflected.HeroControllerR.wallPuffPrefab.SetActive(value: true);
+            Satchel.Reflected.HeroControllerR.audioCtrl.PlaySound(GlobalEnums.HeroSounds.WALLJUMP);
+            VibrationManager.PlayVibrationClipOneShot(Satchel.Reflected.HeroControllerR.wallJumpVibration);
+            
+            Satchel.Reflected.HeroControllerR.wallJumpedR = false;
+            Satchel.Reflected.HeroControllerR.wallJumpedL = false;
+            if (Satchel.Reflected.HeroControllerR.touchingWallL)
+            {
+                Satchel.Reflected.HeroControllerR.FaceRight();
+            }
+            else if (Satchel.Reflected.HeroControllerR.touchingWallR)
+            {
+                Satchel.Reflected.HeroControllerR.FaceLeft();
+            }
+            Satchel.Reflected.HeroControllerR.CancelWallsliding();
+            Satchel.Reflected.HeroControllerR.cState.touchingWall = false;
+            Satchel.Reflected.HeroControllerR.touchingWallL = false;
+            Satchel.Reflected.HeroControllerR.touchingWallR = false;
+            Satchel.Reflected.HeroControllerR.airDashed = false;
+            Satchel.Reflected.HeroControllerR.doubleJumped = false;
+            Satchel.Reflected.HeroControllerR.wallLockSteps = 0;
+            Satchel.Reflected.HeroControllerR.wallLocked = true;
+            Satchel.Reflected.HeroControllerR.jumpQueueSteps = 0;
+            Satchel.Reflected.HeroControllerR.jumped_steps = 0;
+        }
+        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
+            if(!routineRunning){
+                CoroutineHelper.GetRunner().StartCoroutine(slide());
+            }
+        }
+
+    }
     public class AbilityChangerExample : Mod
     {
         public static GameObject flower,flower2,flower3;
@@ -229,6 +278,7 @@ namespace AbilityChangerExample {
             AbilityMap[DashSlash.abilityName].addAbility(new flowerPlanter4());
             AbilityMap[Dash.abilityName].addAbility(new teleport());
             AbilityMap[DoubleJump.abilityName].addAbility(new superJump());
+            AbilityMap[WallJump.abilityName].addAbility(new wallSlide());
         }
 
         public static void plantFlower(int DreamnailType = 0){
