@@ -53,6 +53,9 @@ namespace AbilityChanger {
             if(name == hasDoubleJump){
                 return AbilityChanger.AbilityMap[DoubleJump.abilityName].hasAcquiredAbility();
             }
+            if(name == hasWalljump){
+                return AbilityChanger.AbilityMap[WallJump.abilityName].hasAcquiredAbility();
+            }
             return orig;
         }
     }
