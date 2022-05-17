@@ -16,6 +16,11 @@ namespace AbilityChanger {
         internal static string hasDoubleJump = nameof(PlayerData.hasDoubleJump);
         internal static string hasAcidArmour = nameof(PlayerData.hasAcidArmour);
         internal static string hasLantern = nameof(PlayerData.hasLantern);
+        internal static string fireballLevel = nameof(PlayerData.fireballLevel);
+        internal static string quakeLevel = nameof(PlayerData.quakeLevel);
+        internal static string screamLevel = nameof(PlayerData.screamLevel);
+       // internal static string screamLevel = nameof(PlayerData.has);
+
         static PlayerDataPatcher(){
         }
         public static bool GetBool(string name){
@@ -24,6 +29,13 @@ namespace AbilityChanger {
         public static bool GetBoolInternal(string name){
             return PlayerData.instance.GetBoolInternal(name);
         }
+
+        public static int GetIntInternal(string name)
+        {
+            return PlayerData.instance.GetIntInternal(name);
+        }
+
+
         public static bool OnGetPlayerBoolHook(string name,bool orig){
             if(name == hasNailArt){
                 return (AbilityChanger.AbilityMap[CycloneSlash.abilityName].hasAcquiredAbility() ||
@@ -53,10 +65,13 @@ namespace AbilityChanger {
             if(name == hasDoubleJump){
                 return AbilityChanger.AbilityMap[DoubleJump.abilityName].hasAcquiredAbility();
             }
-            if(name == hasWalljump){
-                return AbilityChanger.AbilityMap[WallJump.abilityName].hasAcquiredAbility();
+            if (name == hasUpwardSlash)
+            {
+                return AbilityChanger.AbilityMap[Nail.abilityName].hasAcquiredAbility();
             }
-            return orig;
+
+
+                return orig;
         }
     }
 }

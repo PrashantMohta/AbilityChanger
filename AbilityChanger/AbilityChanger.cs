@@ -18,7 +18,13 @@ namespace AbilityChanger {
             {DashSlash.abilityName,new DashSlash()},
             {Dash.abilityName,new Dash()},
             {DoubleJump.abilityName,new DoubleJump()},
-            {WallJump.abilityName,new WallJump()}
+            {WallJump.abilityName,new WallJump()},
+            {Nail.abilityName,new Nail()},
+            {Fireball.abilityName,new Fireball()},
+            {Quake.abilityName,new Quake()},
+            {Scream.abilityName,new Scream()},
+            {Focus.abilityName,new Focus()},
+
         };
         public override void Initialize()
         {
