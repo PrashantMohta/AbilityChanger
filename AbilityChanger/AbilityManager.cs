@@ -8,12 +8,10 @@ namespace AbilityChanger
         internal string currentlySelected;
         protected GameObject InvGo;
         public abstract string abilityName { get; protected set; }
-        public abstract Func<bool> hasDefaultAbility { get; protected set; }
-
         public abstract string inventoryTitleKey { get; protected set; }
         public abstract string inventoryDescKey { get; protected set; }
 
-
+        public abstract bool hasDefaultAbility();
         public void addAbility(Ability ability){
             options.Add(ability);
         }
@@ -53,7 +51,7 @@ namespace AbilityChanger
         }
 
         public AbilityManager(){
-            options = new(){new DefaultAbility(abilityName,hasDefaultAbility,false)};
+            options = new(){new DefaultAbility(abilityName,hasDefaultAbility)};
             currentlySelected = abilityName;
             On.PlayMakerFSM.OnEnable += InventoryManagement;
             On.PlayMakerFSM.OnEnable += OnFsmEnable;

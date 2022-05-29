@@ -4,7 +4,7 @@
     {
 
         public override string abilityName { get; protected set; } = Abilities.FOCUS;
-        public override Func<bool> hasDefaultAbility { get; protected set; } = () => true;
+        public override bool hasDefaultAbility()  => true;
         public override string inventoryTitleKey { get; protected set; } = "INV_NAME_SPELL_FOCUS";
         public override string inventoryDescKey { get; protected set; } = "INV_DESC_SPELL_FOCUS";
         public Focus() : base() { }

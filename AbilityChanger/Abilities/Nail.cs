@@ -3,7 +3,7 @@
     public class Nail: AbilityManager
     {
         public override string abilityName { get; protected set; } = Abilities.NAIL;
-        public override Func<bool> hasDefaultAbility { get; protected set; } = () => true;
+        public override bool hasDefaultAbility()  => true;
         public override string inventoryTitleKey
         {
             get

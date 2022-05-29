@@ -15,12 +15,11 @@ namespace AbilityChangerExample
         public override string name { get => "flower_planter"; set { } }
         public override string title { get => "Green Flower"; set { } }
         public override string description { get => "Ability to plant pretty flowers where you stand. Use it in the same way as setting a dream gate."; set { } }
-        public override bool isCustom { get => true; set { } }
-        public override Func<bool> hasAbility { get => () => true; set { } }
         public override Sprite activeSprite { get => getActiveSprite(); set { } }
         public override Sprite inactiveSprite { get => getInactiveSprite(); set { } }
 
         public greenflowerPlanter() { }
+        public override bool hasAbility() => true;
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){ 
             if(interceptedState == "Can Set?"){
                 AbilityChangerExample.plantFlower(0); 
@@ -38,11 +37,10 @@ namespace AbilityChangerExample
         public override string name { get => "Teleport"; set { } }
         public override string title { get => "Teleport"; set { } }
         public override string description { get => "Ability to Teleport."; set { } }
-        public override bool isCustom { get => true; set { } }
-        public override Func<bool> hasAbility { get => () => true; set { } }
         public override Sprite activeSprite { get => getActiveSprite(); set { } }
         public override Sprite inactiveSprite { get => getInactiveSprite(); set { } }
         public teleport() { }
+        public override bool hasAbility() => true;
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){
             var looking_right = HeroController.instance.transform.localScale.x > 0;
             var pos = HeroController.instance.transform.position;

@@ -4,7 +4,7 @@
     {
 
         public override string abilityName { get; protected set; } = Abilities.FIREBALL;
-        public override Func<bool> hasDefaultAbility { get; protected set; } = () => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.fireballLevel)) > 0;
+        public override bool hasDefaultAbility()  => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.fireballLevel)) > 0;
         public override string inventoryTitleKey { 
             get{
                 return $"INV_NAME_SPELL_FIREBALL{PlayerData.instance.GetIntInternal(nameof(PlayerData.fireballLevel))}";

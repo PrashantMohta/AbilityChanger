@@ -4,7 +4,7 @@
     {
        
         public override string abilityName { get; protected set; } = Abilities.QUAKE;
-        public override Func<bool> hasDefaultAbility { get; protected set; } = () => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.quakeLevel)) > 0;
+        public override bool hasDefaultAbility()  => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.quakeLevel)) > 0;
         public override string inventoryTitleKey
         {
             get

@@ -3,7 +3,7 @@ namespace AbilityChanger
     public class Dreamgate : AbilityManager {
         // wont actually be usable till atleast 1 dreamNail ability is also acquired
         public override string abilityName { get; protected set; } = Abilities.DREAMGATE;
-        public override Func<bool> hasDefaultAbility { get; protected set; } = () => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDreamGate);
+        public override bool hasDefaultAbility()  => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDreamGate);
         public override string inventoryTitleKey { get; protected set; } = "INV_NAME_DREAMGATE";
         public override string inventoryDescKey { get; protected set; } = "INV_DESC_DREAMGATE";
         public Dreamgate() : base (){}

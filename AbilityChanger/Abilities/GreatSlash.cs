@@ -3,7 +3,7 @@ namespace AbilityChanger
     public class GreatSlash : AbilityManager {
        
         public override string abilityName { get; protected set; } = Abilities.GREATSLASH;
-        public override Func<bool> hasDefaultAbility { get; protected set; } = () => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDashSlash);
+        public override bool hasDefaultAbility()  => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDashSlash);
         public override string inventoryTitleKey { get; protected set; } = "INV_NAME_ART_DASH";
         public override string inventoryDescKey { get; protected set; } = "INV_DESC_ART_DASH";
         public GreatSlash() : base (){}

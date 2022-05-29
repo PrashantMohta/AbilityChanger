@@ -3,7 +3,7 @@
     public class Scream : AbilityManager
     {
         public override string abilityName { get; protected set; } = Abilities.SCREAM;
-        public override Func<bool> hasDefaultAbility { get; protected set; } = () => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.screamLevel)) > 0;
+        public override bool hasDefaultAbility()  => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.screamLevel)) > 0;
         public override string inventoryTitleKey
         {
             get
