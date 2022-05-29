@@ -1,16 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using HutongGames.PlayMaker;
-using HutongGames.PlayMaker.Actions;
-using Modding;
-using UnityEngine;
-
-using static Satchel.FsmUtil;
-using static Satchel.GameObjectUtils;
-using Satchel.Futils;
-
-namespace AbilityChanger {
+namespace AbilityChanger
+{
     internal static class Equipment{
         public static AbilityManager getEquipmentForIndex(int index){
            int count = 1;

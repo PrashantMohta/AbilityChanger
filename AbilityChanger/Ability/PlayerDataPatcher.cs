@@ -1,6 +1,5 @@
-using Modding;
-
-namespace AbilityChanger {
+namespace AbilityChanger
+{
     internal static class PlayerDataPatcher{
         internal static string hasNailArt = nameof(PlayerData.hasNailArt);
         internal static string hasAllNailArts = nameof(PlayerData.hasAllNailArts);

@@ -1,16 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using HutongGames.PlayMaker;
-using HutongGames.PlayMaker.Actions;
-using Modding;
-using UnityEngine;
-
-using static Satchel.FsmUtil;
-using static Satchel.GameObjectUtils;
-using Satchel.Futils;
-
-namespace AbilityChanger {
+namespace AbilityChanger
+{
     public class Dreamgate : AbilityManager {
         // wont actually be usable till atleast 1 dreamNail ability is also acquired
        

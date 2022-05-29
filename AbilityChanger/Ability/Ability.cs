@@ -1,16 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using HutongGames.PlayMaker;
-using HutongGames.PlayMaker.Actions;
-using Modding;
-using UnityEngine;
+namespace AbilityChanger
+{
 
-using static Satchel.FsmUtil;
-using static Satchel.GameObjectUtils;
-
-namespace AbilityChanger {
-    
     public class Ability{
         public string name;
         public string title;

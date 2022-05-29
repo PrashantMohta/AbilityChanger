@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-using HutongGames.PlayMaker.Actions;
+﻿using AbilityChanger;
 using Modding;
-using UnityEngine;
 using Satchel;
-using AbilityChanger;
+using System;
+using System.Collections;
+using UnityEngine;
 using static AbilityChanger.AbilityChanger;
-namespace AbilityChangerExample {
+namespace AbilityChangerExample
+{
 
     public class greenflowerPlanter : Ability{
         static string name = "flower_planter";

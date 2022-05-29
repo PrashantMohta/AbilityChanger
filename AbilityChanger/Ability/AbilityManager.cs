@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using HutongGames.PlayMaker;
-using HutongGames.PlayMaker.Actions;
-using Modding;
-using UnityEngine;
 
 using static Satchel.FsmUtil;
-using static Satchel.GameObjectUtils;
 
-namespace AbilityChanger {
+namespace AbilityChanger
+{
     public abstract class AbilityManager{
         protected List<Ability> options;
         internal string currentlySelected;
