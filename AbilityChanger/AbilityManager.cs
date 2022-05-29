@@ -26,7 +26,7 @@ namespace AbilityChanger
 
         public bool hasTrigger()
         {
-            return hasAcquiredAbility() && getAbility().hasTrigger();
+            return getAbility().hasTrigger();
         }
         public Ability getAbility(){
             var validOptions = acquiredAbilities();

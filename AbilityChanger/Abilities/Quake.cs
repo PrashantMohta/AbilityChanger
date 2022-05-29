@@ -35,7 +35,7 @@
                     eventName = "CAST",
                     toStateDefault = "On Gound?",
                     toStateCustom = "Inactive",
-                    shouldIntercept = () => this.isCustom() && this.hasTrigger(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
                 });
 

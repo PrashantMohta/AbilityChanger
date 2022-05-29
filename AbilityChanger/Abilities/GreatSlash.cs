@@ -19,7 +19,7 @@ namespace AbilityChanger
                     eventName ="FINISHED",
                     toStateDefault="Facing?",
                     toStateCustom="Regain Control",
-                    shouldIntercept = () => this.isCustom() && this.hasTrigger(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
                 });
 

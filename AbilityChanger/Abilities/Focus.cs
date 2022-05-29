@@ -21,7 +21,7 @@
                     eventName = "FOCUS COMPLETED",
                     toStateDefault = "Spore Cloud",
                     toStateCustom = "Full HP?",
-                    shouldIntercept = () => this.isCustom() && this.hasTrigger(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
                 });
 

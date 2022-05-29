@@ -34,7 +34,7 @@
                     eventName = "CAST",
                     toStateDefault = "Scream Get?",
                     toStateCustom = "Inactive",
-                    shouldIntercept = () => this.isCustom() && this.hasTrigger(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
                 });
 
