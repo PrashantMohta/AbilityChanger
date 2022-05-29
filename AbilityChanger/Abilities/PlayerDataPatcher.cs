@@ -36,41 +36,37 @@ namespace AbilityChanger
 
 
         public static bool OnGetPlayerBoolHook(string name,bool orig){
+
             if(name == hasNailArt){
-                return (AbilityChanger.AbilityMap[CycloneSlash.abilityName].hasAcquiredAbility() ||
-                 AbilityChanger.AbilityMap[DashSlash.abilityName].hasAcquiredAbility() || 
-                 AbilityChanger.AbilityMap[GreatSlash.abilityName].hasAcquiredAbility());
+                return (AbilityChanger.AbilityMap[Abilities.CYCLONESLASH].hasAcquiredAbility() ||
+                 AbilityChanger.AbilityMap[Abilities.DASHSLASH].hasAcquiredAbility() || 
+                 AbilityChanger.AbilityMap[Abilities.GREATSLASH].hasAcquiredAbility());
             }
             if(name == hasAllNailArts){
-                return (AbilityChanger.AbilityMap[CycloneSlash.abilityName].hasAcquiredAbility() &&
-                 AbilityChanger.AbilityMap[DashSlash.abilityName].hasAcquiredAbility() && 
-                 AbilityChanger.AbilityMap[GreatSlash.abilityName].hasAcquiredAbility());
+                return (AbilityChanger.AbilityMap[Abilities.CYCLONESLASH].hasAcquiredAbility() &&
+                 AbilityChanger.AbilityMap[Abilities.DASHSLASH].hasAcquiredAbility() && 
+                 AbilityChanger.AbilityMap[Abilities.GREATSLASH].hasAcquiredAbility());
             }
             if(name == hasCyclone){
-                return AbilityChanger.AbilityMap[CycloneSlash.abilityName].hasAcquiredAbility(); 
+                return AbilityChanger.AbilityMap[Abilities.CYCLONESLASH].hasAcquiredAbility(); 
             }
             if(name == hasUpwardSlash){
-                return AbilityChanger.AbilityMap[DashSlash.abilityName].hasAcquiredAbility(); 
+                return AbilityChanger.AbilityMap[Abilities.DASHSLASH].hasAcquiredAbility(); 
             }
             if(name == hasDashSlash){
-                return AbilityChanger.AbilityMap[GreatSlash.abilityName].hasAcquiredAbility();
+                return AbilityChanger.AbilityMap[Abilities.GREATSLASH].hasAcquiredAbility();
             }
             if(name == hasDreamGate){
-                return AbilityChanger.AbilityMap[Dreamgate.abilityName].hasAcquiredAbility(); 
+                return AbilityChanger.AbilityMap[Abilities.DREAMGATE].hasAcquiredAbility(); 
             }
             if(name == hasDash || name == canDash){
-                return AbilityChanger.AbilityMap[Dash.abilityName].hasAcquiredAbility(); 
+                return AbilityChanger.AbilityMap[Abilities.DASH].hasAcquiredAbility(); 
             }
             if(name == hasDoubleJump){
-                return AbilityChanger.AbilityMap[DoubleJump.abilityName].hasAcquiredAbility();
-            }
-            if (name == hasUpwardSlash)
-            {
-                return AbilityChanger.AbilityMap[Nail.abilityName].hasAcquiredAbility();
+                return AbilityChanger.AbilityMap[Abilities.DOUBLEJUMP].hasAcquiredAbility();
             }
 
-
-                return orig;
+            return orig;
         }
     }
 }

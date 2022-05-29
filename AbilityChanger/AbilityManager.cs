@@ -6,8 +6,14 @@ namespace AbilityChanger
     public abstract class AbilityManager{
         protected List<Ability> options;
         internal string currentlySelected;
-        protected GameObject InvGo;    
-        protected string inventoryTitleKey, inventoryDescKey;
+        protected GameObject InvGo;
+        public abstract string abilityName { get; protected set; }
+        public abstract Func<bool> hasDefaultAbility { get; protected set; }
+
+        public abstract string inventoryTitleKey { get; protected set; }
+        public abstract string inventoryDescKey { get; protected set; }
+
+
         public void addAbility(Ability ability){
             options.Add(ability);
         }
@@ -46,15 +52,12 @@ namespace AbilityChanger
             return options.Where( a => a.hasAbility()).ToList();
         }
 
-        public AbilityManager(string abilityName,string inventoryTitleKey,string inventoryDescKey,Func<bool> hasDefaultAbility){
-            this.inventoryTitleKey = inventoryTitleKey;
-            this.inventoryDescKey = inventoryDescKey;
-            options = new(){new Ability(abilityName,hasDefaultAbility,false)};
+        public AbilityManager(){
+            options = new(){new DefaultAbility(abilityName,hasDefaultAbility,false)};
             currentlySelected = abilityName;
             On.PlayMakerFSM.OnEnable += InventoryManagement;
             On.PlayMakerFSM.OnEnable += OnFsmEnable;
             ModHooks.LanguageGetHook += LanguageGet;
-
         }
         public abstract GameObject getIconGo();
         public virtual void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self){

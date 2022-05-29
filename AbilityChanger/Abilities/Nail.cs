@@ -2,13 +2,26 @@
 {
     public class Nail: AbilityManager
     {
-        public static string abilityName = "Nail";
-        private static new string inventoryTitleKey=>$"INV_NAME_NAIL{PlayerData.instance.GetIntInternal(nameof(PlayerData.nailSmithUpgrades))+1}";
+        public override string abilityName { get; protected set; } = Abilities.NAIL;
+        public override Func<bool> hasDefaultAbility { get; protected set; } = () => true;
+        public override string inventoryTitleKey
+        {
+            get
+            {
+                return $"INV_NAME_NAIL{PlayerData.instance.GetIntInternal(nameof(PlayerData.nailSmithUpgrades)) + 1}";
+            }
+            protected set { }
+        }
+        public override string inventoryDescKey
+        {
+            get
+            {
+                return $"INV_DESC_NAIL{PlayerData.instance.GetIntInternal(nameof(PlayerData.nailSmithUpgrades)) + 1}";
+            }
+            protected set { }
+        }
 
-        private static new string inventoryDescKey=>$"INV_DESC_NAIL{PlayerData.instance.GetIntInternal(nameof(PlayerData.nailSmithUpgrades))+1}";
-
-
-        public Nail() : base(Nail.abilityName, Nail.inventoryTitleKey, Nail.inventoryDescKey, () => true)
+        public Nail() : base()
         {
             On.HeroController.Attack += NailTrigger;
         }

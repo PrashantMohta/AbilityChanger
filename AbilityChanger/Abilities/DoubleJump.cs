@@ -2,10 +2,11 @@ namespace AbilityChanger
 {
     public class DoubleJump : AbilityManager {
        
-        public static string abilityName = "DoubleJump";
-        private static new string inventoryTitleKey = "INV_NAME_DOUBLEJUMP";
-        private static new string inventoryDescKey = "INV_DESC_DOUBLEJUMP";
-        public DoubleJump() : base (DoubleJump.abilityName,DoubleJump.inventoryTitleKey,DoubleJump.inventoryDescKey,() => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDoubleJump)){
+        public override string abilityName { get; protected set; } = Abilities.DOUBLEJUMP;
+        public override Func<bool> hasDefaultAbility { get; protected set; } = () => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDoubleJump);
+        public override string inventoryTitleKey { get; protected set; } = "INV_NAME_DOUBLEJUMP";
+        public override string inventoryDescKey { get; protected set; } = "INV_DESC_DOUBLEJUMP";
+        public DoubleJump() : base (){
             On.HeroController.DoubleJump += DoubleJumpFixedUpdate;
             On.HeroController.DoDoubleJump += DoubleJumpAbilityTrigger;
         }

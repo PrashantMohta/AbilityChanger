@@ -1,13 +1,27 @@
 ﻿namespace AbilityChanger
 {
-    public class Quake : AbilityManager
+    public class Fireball : AbilityManager
     {
 
-        public static string abilityName = "Quake";
-        private static new string inventoryTitleKey = $"INV_NAME_SPELL_QUAKE{PlayerData.instance.GetIntInternal(nameof(PlayerData.quakeLevel))}";
-        private static new string inventoryDescKey = $"INV_DESC_SPELL_QUAKE{PlayerData.instance.GetIntInternal(nameof(PlayerData.quakeLevel))}";
-        public Quake() : base(Quake.abilityName, Quake.inventoryTitleKey, Quake.inventoryDescKey, () => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.quakeLevel)) > 0) { }
-        public override GameObject getIconGo() => InvGo.Find("Spell Quake");
+        public override string abilityName { get; protected set; } = Abilities.FIREBALL;
+        public override Func<bool> hasDefaultAbility { get; protected set; } = () => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.fireballLevel)) > 0;
+        public override string inventoryTitleKey { 
+            get{
+                return $"INV_NAME_SPELL_FIREBALL{PlayerData.instance.GetIntInternal(nameof(PlayerData.fireballLevel))}";
+            }
+            protected set { }
+        } 
+        public override string inventoryDescKey
+        {
+            get
+            {
+                return $"INV_DESC_SPELL_FIREBALL{PlayerData.instance.GetIntInternal(nameof(PlayerData.fireballLevel))}";
+            }
+            protected set { }
+        }
+
+        public Fireball() : base() { }
+        public override GameObject getIconGo() => InvGo.Find("Spell Fireball");
 
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)
         {
@@ -16,9 +30,9 @@
             {
                 self.Intercept(new TransitionInterceptor()
                 {
-                    fromState = "Has Quake?",
+                    fromState = "Has Fireball?",
                     eventName = "CAST",
-                    toStateDefault = "On Gound?",
+                    toStateDefault = "Wallside?",
                     toStateCustom = "Inactive",
                     shouldIntercept = () => this.isCustom(),
                     onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
@@ -29,7 +43,7 @@
             {
                 self.Intercept(new EventInterceptor()
                 {
-                    fromState = "Quake",
+                    fromState = "Fireball",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
                         currentlySelected = nextAbility().name;

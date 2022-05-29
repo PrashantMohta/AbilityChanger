@@ -5,11 +5,11 @@ namespace AbilityChanger
            int count = 1;
            Dictionary<int,AbilityManager> IndexToAbility = new();
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasDash)){
-               IndexToAbility[count] = AbilityChanger.AbilityMap[Dash.abilityName];
+               IndexToAbility[count] = AbilityChanger.AbilityMap[Abilities.DASH];
                count++;
            } 
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasWalljump)){
-               IndexToAbility[count] = AbilityChanger.AbilityMap[WallJump.abilityName];
+               IndexToAbility[count] = AbilityChanger.AbilityMap[Abilities.WALLJUMP];
                count++;
            } 
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasSuperDash)){
@@ -17,7 +17,7 @@ namespace AbilityChanger
                count++;
            } 
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasDoubleJump)){
-               IndexToAbility[count] = AbilityChanger.AbilityMap[DoubleJump.abilityName];
+               IndexToAbility[count] = AbilityChanger.AbilityMap[Abilities.DOUBLEJUMP];
                count++;
            } 
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasAcidArmour)){

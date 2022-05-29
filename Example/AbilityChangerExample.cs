@@ -9,16 +9,18 @@ namespace AbilityChangerExample
 {
 
     public class greenflowerPlanter : Ability{
-        static string name = "flower_planter";
-        static string title = "Green Flower";
-        static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as setting a dream gate.";
         static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower3.png");}
         static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
         
-        static Func<bool> hasAbility = () => true;
-        public greenflowerPlanter() : base (greenflowerPlanter.name,greenflowerPlanter.title,greenflowerPlanter.description,greenflowerPlanter.getActiveSprite(),greenflowerPlanter.getInactiveSprite(),greenflowerPlanter.hasAbility){
+        public override string name { get => "flower_planter"; set { } }
+        public override string title { get => "Green Flower"; set { } }
+        public override string description { get => "Ability to plant pretty flowers where you stand. Use it in the same way as setting a dream gate."; set { } }
+        public override bool isCustom { get => true; set { } }
+        public override Func<bool> hasAbility { get => () => true; set { } }
+        public override Sprite activeSprite { get => getActiveSprite(); set { } }
+        public override Sprite inactiveSprite { get => getInactiveSprite(); set { } }
 
-        }
+        public greenflowerPlanter() { }
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){ 
             if(interceptedState == "Can Set?"){
                 AbilityChangerExample.plantFlower(0); 
@@ -29,118 +31,18 @@ namespace AbilityChangerExample
         }
 
     }
-    public class redflowerPlanter : Ability{
-        static string name = "flower_planter2";
-        static string title = "Red Flower";
-        static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as setting a dream gate.";
-        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower2.png");}
-        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        static Func<bool> hasAbility = () => true;
-        public redflowerPlanter() : base (redflowerPlanter.name,redflowerPlanter.title,redflowerPlanter.description,redflowerPlanter.getActiveSprite(),redflowerPlanter.getInactiveSprite(),redflowerPlanter.hasAbility){
-
-        }
-        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
-            if(interceptedState == "Can Set?"){
-                AbilityChangerExample.plantFlower(2); 
-            }
-            if(interceptedState == "Can Warp?"){
-                Modding.Logger.Log("Red warp"); 
-            }
-        }
-
-    }
-    public class redflowerCyclone : Ability{
-        static string name = "flower_cyclone2";
-        static string title = "Red Flower";
-        static string description = "Ability to furiously plant pretty flowers around where you stand. Use it in the same way as a cyclone slash.";
-        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower2.png");}
-        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        static Func<bool> hasAbility = () => true;
-        public redflowerCyclone() : base (redflowerCyclone.name,redflowerCyclone.title,redflowerCyclone.description,redflowerCyclone.getActiveSprite(),redflowerCyclone.getInactiveSprite(),redflowerCyclone.hasAbility){
-
-        }
-        public Coroutine coroutine;
-        public IEnumerator StopPlanting(){
-            yield return new WaitForSeconds(2f);
-            CoroutineHelper.GetRunner().StopCoroutine(coroutine);
-        }
-        public IEnumerator Planting(){
-            while(true){
-                AbilityChangerExample.plantFlower(2); 
-                yield return new WaitForSeconds(0.02f);
-            }
-        }
-        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
-            
-            AbilityChangerExample.plantFlower(2); 
-            coroutine = CoroutineHelper.GetRunner().StartCoroutine(Planting());
-            CoroutineHelper.GetRunner().StartCoroutine(StopPlanting());
-
-        }
-
-    }
-
-    public class flowerPlanter3 : Ability{
-        static string name = "flower_planter3";
-        static string title = "White Flower";
-        static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as great slash.";
-        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        static Func<bool> hasAbility = () => true;
-        public flowerPlanter3() : base (flowerPlanter3.name,flowerPlanter3.title,flowerPlanter3.description,flowerPlanter3.getActiveSprite(),flowerPlanter3.getInactiveSprite(),flowerPlanter3.hasAbility){
-
-        }
-        
-        public Coroutine coroutine;
-        public IEnumerator StopPlanting(){
-            yield return new WaitForSeconds(5f);
-            CoroutineHelper.GetRunner().StopCoroutine(coroutine);
-        }
-        public IEnumerator Planting(){
-            while(true){
-                AbilityChangerExample.plantFlower(1); 
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
-             
-            AbilityChangerExample.plantFlower(1); 
-            coroutine = CoroutineHelper.GetRunner().StartCoroutine(Planting());
-            CoroutineHelper.GetRunner().StartCoroutine(StopPlanting());
-
-        }
-
-    }
-
-    
-    public class flowerPlanter4 : Ability{
-        static string name = "flower_planter4";
-        static string title = "White Flower 2";
-        static string description = "Ability to plant pretty flowers where you stand. Use it in the same way as Dash slash.";
-        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-
-        static Func<bool> hasAbility = () => true;
-        public flowerPlanter4() : base (flowerPlanter4.name,flowerPlanter4.title,flowerPlanter4.description,flowerPlanter4.getActiveSprite(),flowerPlanter4.getInactiveSprite(),flowerPlanter4.hasAbility){
-
-        }
-        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
-            AbilityChangerExample.plantFlower(1); 
-        }
-
-    }
 
     public class teleport : Ability{
-        static string name = "Teleport";
-        static string title = "Teleport";
-        static string description = "Ability to Teleport.";
         static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
         static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-
-        static Func<bool> hasAbility = () => true;
-        public teleport() : base (teleport.name,teleport.title,teleport.description,teleport.getActiveSprite(),teleport.getInactiveSprite(),teleport.hasAbility){
-
-        }
+        public override string name { get => "Teleport"; set { } }
+        public override string title { get => "Teleport"; set { } }
+        public override string description { get => "Ability to Teleport."; set { } }
+        public override bool isCustom { get => true; set { } }
+        public override Func<bool> hasAbility { get => () => true; set { } }
+        public override Sprite activeSprite { get => getActiveSprite(); set { } }
+        public override Sprite inactiveSprite { get => getInactiveSprite(); set { } }
+        public teleport() { }
         public override void handleAbilityUse(string interceptedState,string interceptedEvent){
             var looking_right = HeroController.instance.transform.localScale.x > 0;
             var pos = HeroController.instance.transform.position;
@@ -151,86 +53,6 @@ namespace AbilityChangerExample
 
     }
 
-    
-    public class superJump : Ability{
-        static string name = "superJump";
-        static string title = "superJump";
-        static string description = "Ability to superJump.";
-        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-
-        static Func<bool> hasAbility = () => true;
-        public superJump() : base (superJump.name,superJump.title,superJump.description,superJump.getActiveSprite(),superJump.getInactiveSprite(),superJump.hasAbility){
-
-        }
-        private bool routineRunning = false;
-        public IEnumerator hover(){
-            var rb2d = HeroController.instance.GetComponent<Rigidbody2D>();
-            /*var pos = HeroController.instance.transform.position;
-            pos.y += 0.1f;
-            HeroController.instance.transform.position = pos;*/            
-            yield return rb2d.moveTowards(new Vector2(0,1f),3f,0.1f);
-            
-            yield return null;
-            Satchel.Reflected.HeroControllerR.CancelDoubleJump();
-            routineRunning = false;
-        }
-        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
-            if(!routineRunning){
-                CoroutineHelper.GetRunner().StartCoroutine(hover());
-            }
-        }
-
-    }
-
-    public class wallSlide : Ability{
-        static string name = "wallSlide";
-        static string title = "wallSlide";
-        static string description = "Ability to wallSlide.";
-        static Sprite getActiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-        static Sprite getInactiveSprite(){ return Satchel.AssemblyUtils.GetSpriteFromResources("flower.png");}
-
-        static Func<bool> hasAbility = () => true;
-        public wallSlide() : base (wallSlide.name,wallSlide.title,wallSlide.description,wallSlide.getActiveSprite(),wallSlide.getInactiveSprite(),wallSlide.hasAbility){
-
-        }
-        private bool routineRunning = false;
-        public IEnumerator slide(){
-            var rb2d = HeroController.instance.GetComponent<Rigidbody2D>(); 
-            yield return rb2d.moveTowards(new Vector2(0,1f),5f,0.1f);
-            routineRunning = false;
-            Satchel.Reflected.HeroControllerR.wallPuffPrefab.SetActive(value: true);
-            Satchel.Reflected.HeroControllerR.audioCtrl.PlaySound(GlobalEnums.HeroSounds.WALLJUMP);
-            VibrationManager.PlayVibrationClipOneShot(Satchel.Reflected.HeroControllerR.wallJumpVibration);
-            
-            Satchel.Reflected.HeroControllerR.wallJumpedR = false;
-            Satchel.Reflected.HeroControllerR.wallJumpedL = false;
-            if (Satchel.Reflected.HeroControllerR.touchingWallL)
-            {
-                Satchel.Reflected.HeroControllerR.FaceRight();
-            }
-            else if (Satchel.Reflected.HeroControllerR.touchingWallR)
-            {
-                Satchel.Reflected.HeroControllerR.FaceLeft();
-            }
-            Satchel.Reflected.HeroControllerR.CancelWallsliding();
-            Satchel.Reflected.HeroControllerR.cState.touchingWall = false;
-            Satchel.Reflected.HeroControllerR.touchingWallL = false;
-            Satchel.Reflected.HeroControllerR.touchingWallR = false;
-            Satchel.Reflected.HeroControllerR.airDashed = false;
-            Satchel.Reflected.HeroControllerR.doubleJumped = false;
-            Satchel.Reflected.HeroControllerR.wallLockSteps = 0;
-            Satchel.Reflected.HeroControllerR.wallLocked = true;
-            Satchel.Reflected.HeroControllerR.jumpQueueSteps = 0;
-            Satchel.Reflected.HeroControllerR.jumped_steps = 0;
-        }
-        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
-            if(!routineRunning){
-                CoroutineHelper.GetRunner().StartCoroutine(slide());
-            }
-        }
-
-    }
     public class AbilityChangerExample : Mod
     {
         public static GameObject flower,flower2,flower3;
@@ -268,14 +90,8 @@ namespace AbilityChangerExample
             flower3.SetActive(false);
             GameObject.DontDestroyOnLoad(flower3);
 
-            AbilityMap[Dreamgate.abilityName].addAbility(new greenflowerPlanter());
-            AbilityMap[Dreamgate.abilityName].addAbility(new redflowerPlanter());
-            //AbilityMap[CycloneSlash.abilityName].addAbility(new redflowerCyclone());
-            AbilityMap[GreatSlash.abilityName].addAbility(new flowerPlanter3());
-            AbilityMap[DashSlash.abilityName].addAbility(new flowerPlanter4());
-            AbilityMap[Dash.abilityName].addAbility(new teleport());
-            AbilityMap[DoubleJump.abilityName].addAbility(new superJump());
-            AbilityMap[WallJump.abilityName].addAbility(new wallSlide());
+            AbilityMap[Abilities.DREAMGATE].addAbility(new greenflowerPlanter());
+            AbilityMap[Abilities.DASH].addAbility(new teleport());
         }
 
         public static void plantFlower(int DreamnailType = 0){

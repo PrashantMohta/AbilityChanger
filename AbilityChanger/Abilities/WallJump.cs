@@ -1,11 +1,11 @@
 namespace AbilityChanger
 {
     public class WallJump : AbilityManager {
-       
-        public static string abilityName = "WallJump";
-        private static new string inventoryTitleKey = "INV_NAME_WALLJUMP";
-        private static new string inventoryDescKey = "INV_DESC_WALLJUMP";
-        public WallJump() : base (WallJump.abilityName,WallJump.inventoryTitleKey,WallJump.inventoryDescKey,() => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasWalljump)){
+        public override string abilityName { get; protected set; } = Abilities.WALLJUMP;
+        public override Func<bool> hasDefaultAbility { get; protected set; } = () => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasWalljump);
+        public override string inventoryTitleKey { get; protected set; } = "INV_NAME_WALLJUMP";
+        public override string inventoryDescKey { get; protected set; } = "INV_DESC_WALLJUMP";
+        public WallJump() : base (){
             On.HeroController.DoWallJump += WallJumpAbilityTrigger;
         }
         public void WallJumpAbilityTrigger(On.HeroController.orig_DoWallJump orig, HeroController self){

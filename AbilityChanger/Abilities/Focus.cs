@@ -3,10 +3,11 @@
     public  class Focus: AbilityManager
     {
 
-        public static string abilityName = "Focus";
-        private static new string inventoryTitleKey = $"INV_NAME_SPELL_FOCUS";
-        private static new string inventoryDescKey = $"INV_DESC_SPELL_FOCUS";
-        public Focus() : base(Focus.abilityName, Focus.inventoryTitleKey, Focus.inventoryDescKey, () => true) { }
+        public override string abilityName { get; protected set; } = Abilities.FOCUS;
+        public override Func<bool> hasDefaultAbility { get; protected set; } = () => true;
+        public override string inventoryTitleKey { get; protected set; } = "INV_NAME_SPELL_FOCUS";
+        public override string inventoryDescKey { get; protected set; } = "INV_DESC_SPELL_FOCUS";
+        public Focus() : base() { }
         public override GameObject getIconGo() => InvGo.Find("Spell Focus");
 
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)

@@ -2,11 +2,11 @@ namespace AbilityChanger
 {
     public class Dreamgate : AbilityManager {
         // wont actually be usable till atleast 1 dreamNail ability is also acquired
-       
-        public static string abilityName = "Dream Gate";
-        private static new string inventoryTitleKey = "INV_NAME_DREAMGATE";
-        private static new string inventoryDescKey = "INV_DESC_DREAMGATE";
-        public Dreamgate() : base (Dreamgate.abilityName,Dreamgate.inventoryTitleKey,Dreamgate.inventoryDescKey,() => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDreamGate)){}
+        public override string abilityName { get; protected set; } = Abilities.DREAMGATE;
+        public override Func<bool> hasDefaultAbility { get; protected set; } = () => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDreamGate);
+        public override string inventoryTitleKey { get; protected set; } = "INV_NAME_DREAMGATE";
+        public override string inventoryDescKey { get; protected set; } = "INV_DESC_DREAMGATE";
+        public Dreamgate() : base (){}
         public override GameObject getIconGo() => InvGo.Find("Dream Gate");
 
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)

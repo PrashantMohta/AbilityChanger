@@ -1,22 +1,23 @@
 namespace AbilityChanger
 {
-    public class CycloneSlash : AbilityManager {
+    public class GreatSlash : AbilityManager {
        
-        public static string abilityName = "Cyclone Slash";
-        private static new string inventoryTitleKey = "INV_NAME_ART_CYCLONE";
-        private static new string inventoryDescKey = "INV_DESC_ART_CYCLONE";
-        public CycloneSlash() : base (CycloneSlash.abilityName,CycloneSlash.inventoryTitleKey,CycloneSlash.inventoryDescKey,() => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasCyclone)){}
-        public override GameObject getIconGo() => InvGo.Find("Art Cyclone");
+        public override string abilityName { get; protected set; } = Abilities.GREATSLASH;
+        public override Func<bool> hasDefaultAbility { get; protected set; } = () => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDashSlash);
+        public override string inventoryTitleKey { get; protected set; } = "INV_NAME_ART_DASH";
+        public override string inventoryDescKey { get; protected set; } = "INV_DESC_ART_DASH";
+        public GreatSlash() : base (){}
+        public override GameObject getIconGo() => InvGo.Find("Art Dash");
 
         public override void OnFsmEnable(On.PlayMakerFSM.orig_OnEnable orig, PlayMakerFSM self)
         {
             orig(self);
             if (self.gameObject.name == "Knight" && self.FsmName == "Nail Arts")
             {
-                self.Intercept(new TransitionInterceptor(){
-                    fromState ="Flash",
+                 self.Intercept(new TransitionInterceptor(){
+                    fromState ="Flash 2",
                     eventName ="FINISHED",
-                    toStateDefault="Cyclone Start",
+                    toStateDefault="Facing?",
                     toStateCustom="Regain Control",
                     shouldIntercept = () => this.isCustom(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
@@ -26,7 +27,7 @@ namespace AbilityChanger
             if (self.gameObject.name == "Inv" && self.FsmName == "UI Inventory")
             {
                 self.Intercept(new EventInterceptor(){
-                    fromState = "Cyclone",
+                    fromState = "Dash Slash",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
                         currentlySelected= nextAbility().name;
