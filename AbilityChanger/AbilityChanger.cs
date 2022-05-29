@@ -5,7 +5,7 @@ namespace AbilityChanger
     {
         public override string GetVersion() => "0.1";
 
-        public static Dictionary<string,AbilityManager> AbilityMap = new(){
+        internal static Dictionary<string,AbilityManager> AbilityMap = new(){
             { Abilities.DREAMGATE,new Dreamgate()},
             { Abilities.CYCLONESLASH,new CycloneSlash()},
             { Abilities.GREATSLASH,new GreatSlash()},
@@ -17,9 +17,26 @@ namespace AbilityChanger
             { Abilities.FIREBALL,new Fireball()},
             { Abilities.QUAKE,new Quake()},
             { Abilities.SCREAM,new Scream()},
-             {Abilities.FOCUS,new Focus()},
-
+            {Abilities.FOCUS,new Focus()},
         };
+        /// <summary>
+        /// Register a new ability for the given ability type
+        /// </summary>
+        /// <param name="abilityType">A valid ability type</param>
+        /// <param name="ability">An Ability</param>
+        public static void RegisterAbility(string abilityType, Ability ability)
+        {
+            AbilityMap[abilityType].addAbility(ability);
+        }
+        /// <summary>
+        /// Deregister an ability from ability changer
+        /// </summary>
+        /// <param name="abilityType">A valid ability type</param>
+        /// <param name="ability">An Ability</param>
+        public static void DeregisterAbility(string abilityType, Ability ability)
+        {
+            AbilityMap[abilityType].removeAbility(ability.name);
+        }
         public override void Initialize()
         {
             ModHooks.GetPlayerBoolHook += PlayerDataPatcher.OnGetPlayerBoolHook;

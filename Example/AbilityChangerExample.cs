@@ -90,8 +90,8 @@ namespace AbilityChangerExample
             flower3.SetActive(false);
             GameObject.DontDestroyOnLoad(flower3);
 
-            AbilityMap[Abilities.DREAMGATE].addAbility(new greenflowerPlanter());
-            AbilityMap[Abilities.DASH].addAbility(new teleport());
+            RegisterAbility(Abilities.DREAMGATE, new greenflowerPlanter());
+            RegisterAbility(Abilities.DASH, new teleport());
         }
 
         public static void plantFlower(int DreamnailType = 0){
