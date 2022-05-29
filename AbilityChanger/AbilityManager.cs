@@ -21,6 +21,11 @@ namespace AbilityChanger
         public bool isCustom(){
             return hasAcquiredAbility() && getAbility().isCustom;
         }
+
+        public bool hasTrigger()
+        {
+            return hasAcquiredAbility() && getAbility().hasTrigger();
+        }
         public Ability getAbility(){
             var validOptions = acquiredAbilities();
             return validOptions.FirstOrDefault(a => a.name == currentlySelected) ?? validOptions[0];
@@ -136,7 +141,7 @@ namespace AbilityChanger
             return orig;
         }
         public void handleAbilityUse(string interceptedState = "",string interceptedEvent = ""){
-            getAbility().handleAbilityUse(interceptedState,interceptedEvent);
+            getAbility().Trigger(interceptedState+interceptedEvent);
         }
 
     }
