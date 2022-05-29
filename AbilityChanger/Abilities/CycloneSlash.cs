@@ -31,7 +31,7 @@ namespace AbilityChanger
                     fromState = "Cyclone",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected= nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

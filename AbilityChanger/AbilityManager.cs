@@ -3,9 +3,11 @@ using static Satchel.FsmUtil;
 
 namespace AbilityChanger
 {
-    public abstract class AbilityManager{
+    public abstract class AbilityManager {
         protected List<Ability> options;
-        internal string currentlySelected;
+
+        public Ability currentAbility;
+
         protected GameObject InvGo;
         public abstract string abilityName { get; protected set; }
         public abstract string inventoryTitleKey { get; protected set; }
@@ -28,7 +30,7 @@ namespace AbilityChanger
         }
         public Ability getAbility(){
             var validOptions = acquiredAbilities();
-            return validOptions.FirstOrDefault(a => a.name == currentlySelected) ?? validOptions[0];
+            return currentAbility ?? validOptions[0];
         }
 
         public Ability getDefaultAbility(){
@@ -37,7 +39,7 @@ namespace AbilityChanger
 
         public Ability nextAbility(){
             var validOptions = acquiredAbilities();
-            var currentIndex = validOptions.FindIndex(a => a.name == currentlySelected);
+            var currentIndex = currentAbility != null ? validOptions.FindIndex(a => a.name == currentAbility.name) : 0;
             Ability nextAbility;
             if(validOptions.Count() > currentIndex + 1){
                nextAbility = validOptions[currentIndex + 1];
@@ -56,8 +58,8 @@ namespace AbilityChanger
         }
 
         public AbilityManager(){
-            options = new(){new DefaultAbility(abilityName,hasDefaultAbility)};
-            currentlySelected = abilityName;
+            currentAbility = new DefaultAbility(abilityName, hasDefaultAbility);
+            options = new(){ currentAbility };
             On.PlayMakerFSM.OnEnable += InventoryManagement;
             On.PlayMakerFSM.OnEnable += OnFsmEnable;
             ModHooks.LanguageGetHook += LanguageGet;
@@ -68,7 +70,6 @@ namespace AbilityChanger
         }
 
         public virtual void updateIcon(GameObject icon){
-            var currentAbility = getAbility();
             var defaultAbility = getDefaultAbility();
             var itemdisplay = icon.GetComponent<InvItemDisplay>();
             if(itemdisplay != null){
@@ -128,20 +129,20 @@ namespace AbilityChanger
         }
         private string LanguageGet(string title, string sheet, string orig){
             if(sheet == "UI" && title == inventoryTitleKey && isCustom()){
-                   return getAbility().title;
+                   return currentAbility.title;
             }
             
             if(sheet == "UI" && title == inventoryDescKey && options.Count() > 1){
                 var final = orig;
                 if(isCustom()){
-                    final = getAbility().description;
+                    final = currentAbility.description;
                 }
                 return $"Press the confirm button to cycle abilities. <br><br> {final}";
             }
             return orig;
         }
         public void handleAbilityUse(string interceptedState = "",string interceptedEvent = ""){
-            getAbility().Trigger(interceptedState+interceptedEvent);
+            currentAbility.Trigger(interceptedState+interceptedEvent);
         }
 
     }

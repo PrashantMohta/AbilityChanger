@@ -46,7 +46,7 @@
                     fromState = "Scream",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected = nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

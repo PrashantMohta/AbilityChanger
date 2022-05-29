@@ -9,16 +9,34 @@ namespace AbilityChanger
         public Dash() : base (){
             On.HeroController.Dash += DashFixedUpdate;
             On.HeroController.HeroDash += DashAbilityTrigger;
+            On.HeroController.FinishedDashing += HeroController_FinishedDashing;
         }
-        public void DashAbilityTrigger(On.HeroController.orig_HeroDash orig, HeroController self){
+
+        private void HeroController_FinishedDashing(On.HeroController.orig_FinishedDashing orig, HeroController self)
+        {
             orig(self);
-            if(isCustom()){
-                this.handleAbilityUse();
+            if (currentAbility.hasComplete())
+            {
+                currentAbility.Complete(false);
             }
         }
-        public void DashFixedUpdate(On.HeroController.orig_Dash orig, HeroController self){
-            if(!isCustom()){
+
+        public void DashAbilityTrigger(On.HeroController.orig_HeroDash orig, HeroController self){
+            if (currentAbility.hasStart()) {
+                currentAbility.Start();
+            }
+            if (currentAbility.hasTrigger()) {
+                this.handleAbilityUse();
+            } else
+            {
                 orig(self);
+            } 
+        }
+        public void DashFixedUpdate(On.HeroController.orig_Dash orig, HeroController self){
+            if(!currentAbility.hasOngoing()){
+                orig(self);
+            } else {
+                currentAbility.Ongoing();
             }
         }
         public override GameObject getIconGo() => InvGo.Find("Dash Cloak");

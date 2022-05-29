@@ -64,7 +64,7 @@ namespace AbilityChanger
         public static void changeOption(int index){
             AbilityManager ability = getEquipmentForIndex(index);
             if(ability != null){
-                ability.currentlySelected = ability.nextAbility().name;
+                ability.currentAbility = ability.nextAbility();
                 ability.updateInventory();
             }
         }

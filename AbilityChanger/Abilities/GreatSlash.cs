@@ -30,7 +30,7 @@ namespace AbilityChanger
                     fromState = "Dash Slash",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected= nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

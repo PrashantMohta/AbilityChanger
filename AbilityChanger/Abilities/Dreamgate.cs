@@ -66,7 +66,7 @@ namespace AbilityChanger
                     fromState = "Dream Gate",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected= nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

@@ -37,7 +37,7 @@
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
                         Modding.Logger.Log("oi");
-                        currentlySelected = nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });
