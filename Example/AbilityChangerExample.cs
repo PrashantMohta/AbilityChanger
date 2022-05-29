@@ -1,8 +1,6 @@
 ﻿using AbilityChanger;
 using Modding;
 using Satchel;
-using System;
-using System.Collections;
 using UnityEngine;
 using static AbilityChanger.AbilityChanger;
 namespace AbilityChangerExample

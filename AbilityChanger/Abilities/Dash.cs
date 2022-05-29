@@ -1,6 +1,7 @@
 namespace AbilityChanger
 {
-    public class Dash : AbilityManager {
+    public class Dash : AbilityManager, IStartable, ITriggerable, IOngoing, ICompletable
+    {
   
         public override string abilityName { get; protected set; } = Abilities.DASH;
         public override bool hasDefaultAbility()  => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasDash) || PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.canDash);
@@ -15,18 +16,13 @@ namespace AbilityChanger
         private void HeroController_FinishedDashing(On.HeroController.orig_FinishedDashing orig, HeroController self)
         {
             orig(self);
-            if (currentAbility.hasComplete())
-            {
-                currentAbility.Complete(false);
-            }
+            HandleComplete();
         }
 
         public void DashAbilityTrigger(On.HeroController.orig_HeroDash orig, HeroController self){
-            if (currentAbility.hasStart()) {
-                currentAbility.Start();
-            }
+            HandleStart();
             if (currentAbility.hasTrigger()) {
-                this.handleAbilityUse();
+                HandleTrigger();
             } else
             {
                 orig(self);
@@ -36,10 +32,41 @@ namespace AbilityChanger
             if(!currentAbility.hasOngoing()){
                 orig(self);
             } else {
-                currentAbility.Ongoing();
+                if (HeroControllerR.dash_timer > self.DASH_TIME)
+                {
+                    HandleComplete();
+                    return;
+                }
+                HandleOngoing();
             }
         }
         public override GameObject getIconGo() => InvGo.Find("Dash Cloak");
 
+        public void HandleStart()
+        {
+            if (currentAbility.hasStart())
+            {
+                currentAbility.Start();
+            }
+        }
+
+        public void HandleTrigger()
+        {
+            this.handleAbilityUse();
+        }
+
+        public void HandleOngoing()
+        {
+            currentAbility.Ongoing();
+        }
+
+        public void HandleComplete()
+        {
+
+            if (currentAbility.hasComplete())
+            {
+                currentAbility.Complete(false);
+            }
+        }
     }
 }
