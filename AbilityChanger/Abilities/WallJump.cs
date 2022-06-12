@@ -1,6 +1,6 @@
 namespace AbilityChanger
 {
-    public class WallJump : AbilityManager {
+    public class WallJump : AbilityManager, IStartable, ITriggerable {
         public override string abilityName { get; protected set; } = Abilities.WALLJUMP;
         public override bool hasDefaultAbility()  => PlayerDataPatcher.GetBoolInternal(PlayerDataPatcher.hasWalljump);
         public override string inventoryTitleKey { get; protected set; } = "INV_NAME_WALLJUMP";
@@ -9,14 +9,30 @@ namespace AbilityChanger
             On.HeroController.DoWallJump += WallJumpAbilityTrigger;
         }
         public void WallJumpAbilityTrigger(On.HeroController.orig_DoWallJump orig, HeroController self){
-            if(isCustom()){
-                this.handleAbilityUse();
+            
+            //Trigger
+            if(currentAbility.hasTrigger()){
+                HandleTrigger();
             } else {
+                //Start
+                HandleStart();
                 orig(self);
             }
         }
 
         public override GameObject getIconGo() => InvGo.Find("Mantis Claw");
 
+        public void HandleStart()
+        {
+            if (!currentAbility.hasStart()) return;
+            currentAbility.Start();
+
+        }
+
+        public void HandleTrigger()
+        {
+            currentAbility.Trigger("BUTTON DOWN");
+
+        }
     }
 }

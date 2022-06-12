@@ -45,8 +45,8 @@ namespace AbilityChanger
                     fromState = "Flash",
                     eventName = "FINISHED",
                     toStateDefault = "Cyclone Start",
-                    shouldIntercept = ()=> currentAbility.hasStart(),
                     toStateCustom = "Cyclone Start",
+                    shouldIntercept = ()=> currentAbility.hasStart(),
                     onIntercept = (fsmstate, fsmevent) =>HandleStart()
                 });
                 #endregion
@@ -140,7 +140,7 @@ namespace AbilityChanger
         {
             if (!currentAbility.hasCharged()) return;
             if(!(Satchel.Reflected.HeroControllerR.nailChargeTime< Satchel.Reflected.HeroControllerR.nailChargeTimer)) return;
-            currentAbility.Charged(()=>{ },()=> { });
+            currentAbility.Charged();
         }
         public void HandleCharge() {
             if (!currentAbility.hasCharging()) return;
