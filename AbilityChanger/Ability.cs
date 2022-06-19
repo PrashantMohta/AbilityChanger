@@ -43,9 +43,7 @@ namespace AbilityChanger
         /// <summary>
         /// Overrides the Charged state of an ability
         /// </summary>
-        /// <param name="Next">Action that finishes the charged state</param>
-        /// <param name="Cancel">Action that cancels the ability</param>
-        public virtual void Charged(Action Next, Action Cancel) { }
+        public virtual void Charged() { }
 
         /// <summary>
         /// Does this ability have a Cancel Method

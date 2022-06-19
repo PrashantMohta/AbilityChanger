@@ -31,38 +31,36 @@
                 }));
                 #endregion
 
-                /*#region Charged
-                self.Intercept(new TransitionInterceptor()
+                #region Charged
+                self.AddAction("Focus Heal", new CustomFsmAction(() =>
                 {
-                    fromState="Set HP Amount",
-                    toStateDefault="Focus Heal",
-                    shouldIntercept=()=> currentAbility.hasCharged(),
-                    toStateCustom="Focus Get Finish",
-                    onIntercept=(a,b)=> HandleCharged()
-                });
+                    HandleCharged();
+                }));
+                #endregion
 
-                #endregion*/
+                #region Cancel
+                self.AddAction("Focus Cancel", new CustomFsmAction(() =>
+                {
+                    HandleCancel();
+
+                }));
+
+                #endregion
 
                 #region Trigger
                 self.Intercept(new TransitionInterceptor()
                 {
-                    fromState="Can Focus",
+                    fromState="Can Focus?",
                     toStateDefault="Start Slug Anim",
+                    eventName="FINISHED",
+                    toStateCustom="Regain Control",
                     shouldIntercept=()=> currentAbility.hasTrigger(),
-                    toStateCustom="Focus Cancel",
-                    onIntercept=(a,b)=> HandleTrigger()
+                    onIntercept=(a,b)=> HandleTrigger() 
                 });
 
                 #endregion
 
-                #region Cancel
-                self.InsertAction("Focus Cancel", new CustomFsmAction(() =>
-                {
-                    HandleCancel();
 
-                }),0);
-
-                #endregion
 
 
                 #region Complete
@@ -75,7 +73,7 @@
                     shouldIntercept = () => currentAbility.hasComplete(),
                     onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
                 });*/
-                self.AddAction("Spore Cloud", new CustomFsmAction(() =>
+                self.AddAction("Focus Heal", new CustomFsmAction(() =>
                 {
                     HandleComplete();
                 }));
@@ -111,7 +109,8 @@
 
         public void HandleCharged()
         {
-            //currentAbility.Charged();
+            if (!currentAbility.hasCharged()) return;
+            currentAbility.Charged();
         }
 
         public void HandleTrigger()
@@ -122,7 +121,6 @@
 
         public void HandleCancel()
         {
-            Log("oi");
             if(!currentAbility.hasCancel()) return;
             currentAbility.Cancel();
         }

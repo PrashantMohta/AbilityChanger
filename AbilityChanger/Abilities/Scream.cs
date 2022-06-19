@@ -1,6 +1,6 @@
 ﻿namespace AbilityChanger
 {
-    public class Scream : AbilityManager
+    public class Scream : AbilityManager, IStartable, ITriggerable, ICompletable
     {
         public override string abilityName { get; protected set; } = Abilities.SCREAM;
         public override bool hasDefaultAbility()  => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.screamLevel)) > 0;
@@ -16,7 +16,7 @@
         {
             get
             {
-                return $"INV_DESC_SPELL_CREAM{PlayerData.instance.GetIntInternal(nameof(PlayerData.screamLevel))}";
+                return $"INV_DESC_SPELL_SCREAM{PlayerData.instance.GetIntInternal(nameof(PlayerData.screamLevel))}";
             }
             protected set { }
         }
@@ -28,15 +28,63 @@
             orig(self);
             if (self.gameObject.name == "Knight" && self.FsmName == "Spell Control")
             {
+                #region Start
+                self.Intercept(new TransitionInterceptor()
+                {
+                    fromState = "Scream Antic1",
+                    toStateDefault="Scream Burst 1",
+                    toStateCustom="Scream End",
+                    eventName="FINISHED",
+                    shouldIntercept=()=> currentAbility.hasStart(),
+                    onIntercept=(a,b)=>HandleStart()
+                });
+
+                self.Intercept(new TransitionInterceptor()
+                {
+
+                    fromState = "Scream Antic2",
+                    toStateDefault = "Scream Burst 2",
+                    toStateCustom = "Scream End",
+                    eventName = "FINISHED",
+                    shouldIntercept = () => currentAbility.hasStart(),
+                    onIntercept = (a, b) => HandleStart()
+                });
+
+                #endregion
+
+                #region Trigger
                 self.Intercept(new TransitionInterceptor()
                 {
                     fromState = "Has Scream?",
                     eventName = "CAST",
                     toStateDefault = "Scream Get?",
                     toStateCustom = "Inactive",
-                    shouldIntercept = () => this.hasTrigger(),
-                    onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
+                    shouldIntercept = () => currentAbility.hasTrigger(),
+                    onIntercept = (fsmstate, fsmevent) => HandleTrigger()
                 });
+                #endregion
+
+                #region Complete
+                self.Intercept(new TransitionInterceptor()
+                {
+                    fromState="Scream End",
+                    toStateDefault="Spell End",
+                    toStateCustom="Spell End",
+                    eventName="FINISHED",
+                    shouldIntercept=()=>currentAbility.hasComplete(),
+                    onIntercept=(a,b)=> HandleComplete()
+                });
+
+                self.Intercept(new TransitionInterceptor()
+                {
+                    fromState = "Scream End 2",
+                    toStateDefault = "Spell End",
+                    toStateCustom = "Spell End",
+                    eventName = "FINISHED",
+                    shouldIntercept = () => currentAbility.hasComplete(),
+                    onIntercept = (a, b) => HandleComplete()
+                });
+                #endregion
 
             }
             if (self.gameObject.name == "Inv" && self.FsmName == "UI Inventory")
@@ -53,12 +101,19 @@
             }
         }
 
+        public void HandleStart()
+        {
+            currentAbility.Start();
+        }
 
+        public void HandleTrigger()
+        {
+            currentAbility.Trigger("BUTTON DOWN");
+        }
 
-
-
-
-
-
+        public void HandleComplete()
+        {
+            currentAbility.Complete(false);
+        }
     }
 }
