@@ -43,7 +43,6 @@
                     fromState = "Nail",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        Modding.Logger.Log("oi");
                         currentAbility = nextAbility();
                         updateInventory();
                     }
