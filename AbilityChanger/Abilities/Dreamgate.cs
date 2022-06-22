@@ -19,7 +19,7 @@ namespace AbilityChanger
                     eventName ="FINISHED",
                     toStateDefault="Set",
                     toStateCustom="Set Recover",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
                 });
                 
@@ -28,7 +28,7 @@ namespace AbilityChanger
                     eventName ="FAIL",
                     toStateDefault="Set Fail",
                     toStateCustom="Set Recover",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
                 });
                 
@@ -37,7 +37,7 @@ namespace AbilityChanger
                     eventName ="FINISHED",
                     toStateDefault="Check Scene",
                     toStateCustom="Warp Cancel",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
                 });
                 
@@ -46,7 +46,7 @@ namespace AbilityChanger
                     eventName ="FAIL",
                     toStateDefault="Warp Fail",
                     toStateCustom="Warp Cancel",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
                 });
                 
@@ -55,7 +55,7 @@ namespace AbilityChanger
                     eventName ="NO ESSENCE",
                     toStateDefault="Show Essence",
                     toStateCustom="Warp Cancel",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
                 });
                 
@@ -66,7 +66,7 @@ namespace AbilityChanger
                     fromState = "Dream Gate",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected= nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

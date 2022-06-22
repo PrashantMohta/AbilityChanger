@@ -21,7 +21,7 @@
                     eventName = "FOCUS COMPLETED",
                     toStateDefault = "Spore Cloud",
                     toStateCustom = "Full HP?",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
                 });
 
@@ -33,7 +33,7 @@
                     fromState = "Focus",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected = nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

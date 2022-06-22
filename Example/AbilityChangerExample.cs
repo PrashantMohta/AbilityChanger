@@ -1,8 +1,6 @@
 ﻿using AbilityChanger;
 using Modding;
 using Satchel;
-using System;
-using System.Collections;
 using UnityEngine;
 using static AbilityChanger.AbilityChanger;
 namespace AbilityChangerExample
@@ -20,11 +18,13 @@ namespace AbilityChangerExample
 
         public greenflowerPlanter() { }
         public override bool hasAbility() => true;
-        public override void handleAbilityUse(string interceptedState,string interceptedEvent){ 
-            if(interceptedState == "Can Set?"){
+        public override bool hasTrigger() => true;
+        public override void Trigger(string type){ 
+            if(type.StartsWith("Can Set?"))
+            {
                 AbilityChangerExample.plantFlower(0); 
             }
-            if(interceptedState == "Can Warp?"){
+            if(type.StartsWith("Can Warp?")){
                 Modding.Logger.Log("Green warp"); 
             }
         }
@@ -41,7 +41,9 @@ namespace AbilityChangerExample
         public override Sprite inactiveSprite { get => getInactiveSprite(); set { } }
         public teleport() { }
         public override bool hasAbility() => true;
-        public override void handleAbilityUse(string interceptedState,string interceptedEvent){
+        public override bool hasTrigger() => true;
+        public override void Trigger(string type)
+        {
             var looking_right = HeroController.instance.transform.localScale.x > 0;
             var pos = HeroController.instance.transform.position;
             pos.x += looking_right ? -3f : 3f;
@@ -88,8 +90,8 @@ namespace AbilityChangerExample
             flower3.SetActive(false);
             GameObject.DontDestroyOnLoad(flower3);
 
-            AbilityMap[Abilities.DREAMGATE].addAbility(new greenflowerPlanter());
-            AbilityMap[Abilities.DASH].addAbility(new teleport());
+            RegisterAbility(Abilities.DREAMGATE, new greenflowerPlanter());
+            RegisterAbility(Abilities.DASH, new teleport());
         }
 
         public static void plantFlower(int DreamnailType = 0){

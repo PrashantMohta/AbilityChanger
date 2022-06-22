@@ -34,7 +34,7 @@
                     eventName = "CAST",
                     toStateDefault = "Scream Get?",
                     toStateCustom = "Inactive",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
                 });
 
@@ -46,7 +46,7 @@
                     fromState = "Scream",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected = nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

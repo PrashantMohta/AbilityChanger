@@ -20,7 +20,7 @@ namespace AbilityChanger
                     eventName ="FINISHED",
                     toStateDefault="Cyclone Start",
                     toStateCustom="Regain Control",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
                 });
 
@@ -31,7 +31,7 @@ namespace AbilityChanger
                     fromState = "Cyclone",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected= nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

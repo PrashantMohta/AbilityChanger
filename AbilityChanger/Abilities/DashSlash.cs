@@ -19,7 +19,7 @@ namespace AbilityChanger
                     eventName ="DASH END",
                     toStateDefault="DSlash Start",
                     toStateCustom="Regain Control",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate,fsmevent) => this.handleAbilityUse(fsmstate,fsmevent)
                 });
 
@@ -30,7 +30,7 @@ namespace AbilityChanger
                     fromState = "Uppercut",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected= nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });

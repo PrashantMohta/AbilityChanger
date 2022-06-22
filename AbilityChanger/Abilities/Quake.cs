@@ -35,7 +35,7 @@
                     eventName = "CAST",
                     toStateDefault = "On Gound?",
                     toStateCustom = "Inactive",
-                    shouldIntercept = () => this.isCustom(),
+                    shouldIntercept = () => this.hasTrigger(),
                     onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
                 });
 
@@ -47,7 +47,7 @@
                     fromState = "Quake",
                     eventName = "UI CONFIRM",
                     onIntercept = () => {
-                        currentlySelected = nextAbility().name;
+                        currentAbility = nextAbility();
                         updateInventory();
                     }
                 });
