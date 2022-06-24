@@ -29,4 +29,10 @@
         public void HandleComplete();
 
     }
+    
+    public interface ISpawnable
+    {
+        public void HandleSpawn();
+    }
+
 }
