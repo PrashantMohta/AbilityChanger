@@ -1,4 +1,4 @@
-﻿namespace AbilityChanger
+namespace AbilityChanger
 {
     public class Quake : AbilityManager, IStartable, IChargable, ICancellable, ITriggerable, IContacting, ICompletable,IOngoing
     {
@@ -51,6 +51,12 @@
                 }));
 
                 #endregion
+
+				#region Charged
+                self.InsertCustomAction("Quake1 Land", HandleCharged, 13);
+                self.InsertCustomAction("Q2 Land", HandleCharged, 13);
+
+				#endregion
 
                 #region Trigger
                 self.Intercept(new TransitionInterceptor()
@@ -136,8 +142,9 @@
 
         public void HandleCharged()
         {
-            throw new NotImplementedException();
-        }
+			if (!currentAbility.hasCharged()) return;
+			currentAbility.Charged();
+		}
 
         public void HandleOngoing()
         {
