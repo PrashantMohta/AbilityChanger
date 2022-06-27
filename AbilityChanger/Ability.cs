@@ -97,6 +97,10 @@ namespace AbilityChanger
         /// <param name="wasCancelled">Denotes if the ability was cancelled</param>
         public virtual void Complete(bool wasCancelled) { }
 
+        public virtual bool hasSpawn() => false;
+        public virtual void Spawn() { }
+
+
     }
 
     public class DefaultAbility : Ability
