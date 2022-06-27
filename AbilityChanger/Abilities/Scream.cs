@@ -1,6 +1,6 @@
 ﻿namespace AbilityChanger
 {
-    public class Scream : AbilityManager, IStartable, ITriggerable, ICompletable
+    public class Scream : AbilityManager, IStartable, ITriggerable, ICompletable, ISpawnable 
     {
         public override string abilityName { get; protected set; } = Abilities.SCREAM;
         public override bool hasDefaultAbility()  => (PlayerDataPatcher.GetIntInternal(PlayerDataPatcher.screamLevel)) > 0;
@@ -28,15 +28,15 @@
             orig(self);
             if (self.gameObject.name == "Knight" && self.FsmName == "Spell Control")
             {
-                #region Start
+                #region Spawn
                 self.Intercept(new TransitionInterceptor()
                 {
                     fromState = "Scream Antic1",
                     toStateDefault="Scream Burst 1",
                     toStateCustom="Scream End",
                     eventName="FINISHED",
-                    shouldIntercept=()=> currentAbility.hasStart(),
-                    onIntercept=(a,b)=>HandleStart()
+                    shouldIntercept=()=> currentAbility.hasSpawn(),
+                    onIntercept=(a,b)=>HandleSpawn()
                 });
 
                 self.Intercept(new TransitionInterceptor()
@@ -45,6 +45,30 @@
                     fromState = "Scream Antic2",
                     toStateDefault = "Scream Burst 2",
                     toStateCustom = "Scream End",
+                    eventName = "FINISHED",
+                    shouldIntercept = () => currentAbility.hasSpawn(),
+                    onIntercept = (a, b) => HandleSpawn()
+                });
+
+                #endregion
+
+                #region Start
+                self.Intercept(new TransitionInterceptor()
+                {
+                    fromState = "Scream Antic1",
+                    toStateDefault = "Scream Burst 1",
+                    toStateCustom = "Scream Burst 1",
+                    eventName = "FINISHED",
+                    shouldIntercept = () => currentAbility.hasStart(),
+                    onIntercept = (a, b) => HandleStart()
+                });
+
+                self.Intercept(new TransitionInterceptor()
+                {
+
+                    fromState = "Scream Antic2",
+                    toStateDefault = "Scream Burst 2",
+                    toStateCustom = "Scream Burst 2",
                     eventName = "FINISHED",
                     shouldIntercept = () => currentAbility.hasStart(),
                     onIntercept = (a, b) => HandleStart()
@@ -114,6 +138,11 @@
         public void HandleComplete()
         {
             currentAbility.Complete(false);
+        }
+
+        public void HandleSpawn()
+        {
+            currentAbility.Spawn();
         }
     }
 }

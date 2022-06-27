@@ -1,6 +1,6 @@
 ﻿namespace AbilityChanger
 {
-    public class Fireball : AbilityManager, IStartable, ITriggerable, IContacting, ICompletable
+    public class Fireball : AbilityManager, IStartable, ITriggerable, IContacting, ICompletable, ISpawnable
     {
 
         public override string abilityName { get; protected set; } = Abilities.FIREBALL;
@@ -30,7 +30,7 @@
                 {
                     fromState="Level Check",
                     toStateDefault="Fireball 1",
-                    toStateCustom="Fireball Recoil",
+                    toStateCustom= "Fireball 1",
                     eventName="LEVEL 1",
                     shouldIntercept=()=> currentAbility.hasStart(),
                     onIntercept=(a,b)=> HandleStart()
@@ -40,12 +40,35 @@
                 {
                     fromState = "Level Check",
                     toStateDefault = "Fireball 2",
-                    toStateCustom = "Fireball Recoil",
+                    toStateCustom = "Fireball 2",
                     eventName = "LEVEL 2",
                     shouldIntercept = () => currentAbility.hasStart(),
                     onIntercept = (a, b) => HandleStart()
                 });
                 #endregion
+
+                #region Spawn
+                self.Intercept(new TransitionInterceptor()
+                {
+                    fromState = "Level Check",
+                    toStateDefault = "Fireball 1",
+                    toStateCustom = "Fireball Recoil",
+                    eventName = "LEVEL 1",
+                    shouldIntercept = () => currentAbility.hasSpawn(),
+                    onIntercept = (a, b) => HandleSpawn()
+                });
+
+                self.Intercept(new TransitionInterceptor()
+                {
+                    fromState = "Level Check",
+                    toStateDefault = "Fireball 2",
+                    toStateCustom = "Fireball Recoil",
+                    eventName = "LEVEL 2",
+                    shouldIntercept = () => currentAbility.hasSpawn(),
+                    onIntercept = (a, b) => HandleSpawn()
+                });
+                #endregion
+
 
                 #region Trigger
                 self.Intercept(new TransitionInterceptor()
@@ -112,5 +135,9 @@
             currentAbility.Complete(false);
         }
 
+        public void HandleSpawn()
+        {
+            currentAbility.Spawn();
+        }
     }
 }
