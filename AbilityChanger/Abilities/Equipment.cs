@@ -13,7 +13,7 @@ namespace AbilityChanger
                count++;
            } 
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasSuperDash)){
-               //IndexToAbility[count] = AbilityChanger.AbilityMap[SuperDash.abilityName];
+               IndexToAbility[count] = AbilityChanger.AbilityMap[Abilities.SUPERDASH];
                count++;
            } 
            if(PlayerDataPatcher.GetBool(PlayerDataPatcher.hasDoubleJump)){

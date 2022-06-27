@@ -3,3 +3,5 @@ AbilityChanger/bin
 AbilityChanger/obj
 Example/obj
 .vs/
+/AbilityChanger/AbilityChanger.sln
+/AbilityChanger/LocalBuildProperties.props

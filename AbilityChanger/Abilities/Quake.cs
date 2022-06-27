@@ -1,6 +1,6 @@
-﻿namespace AbilityChanger
+namespace AbilityChanger
 {
-    public class Quake : AbilityManager
+    public class Quake : AbilityManager, IStartable, IChargable, ICancellable, ITriggerable, IContacting, ICompletable,IOngoing
     {
        
         public override string abilityName { get; protected set; } = Abilities.QUAKE;
@@ -29,15 +29,68 @@
             orig(self);
             if (self.gameObject.name == "Knight" && self.FsmName == "Spell Control")
             {
+
+                #region Start
+                self.Intercept(new TransitionInterceptor()
+                {
+                    fromState="Has Quake?",
+                    toStateDefault="On Ground?",
+                    eventName="CAST",
+                    toStateCustom= "On Ground?",
+                    shouldIntercept =()=>currentAbility.hasStart(),
+                    onIntercept=(a,b)=>HandleStart()
+
+                });
+
+                #endregion
+
+                #region Charging
+                self.AddAction("Quake Antic", new CustomFsmActionFixedUpdate(() =>
+                {
+                    HandleCharge();
+                }));
+
+                #endregion
+
+				#region Charged
+                self.InsertCustomAction("Quake1 Land", HandleCharged, 13);
+                self.InsertCustomAction("Q2 Land", HandleCharged, 13);
+
+				#endregion
+
+                #region Trigger
                 self.Intercept(new TransitionInterceptor()
                 {
                     fromState = "Has Quake?",
                     eventName = "CAST",
                     toStateDefault = "On Gound?",
                     toStateCustom = "Inactive",
-                    shouldIntercept = () => this.hasTrigger(),
-                    onIntercept = (fsmstate, fsmevent) => this.handleAbilityUse(fsmstate, fsmevent)
+                    shouldIntercept = () => currentAbility.hasTrigger(),
+                    onIntercept = (fsmstate, fsmevent) => HandleTrigger()
                 });
+                #endregion
+
+                #region OnGoing
+                self.AddAction("Quake1 Down", new CustomFsmActionFixedUpdate(() =>
+                {
+                    HandleOngoing();
+                }));
+
+                self.AddAction("Quake2 Down", new CustomFsmActionFixedUpdate(() =>
+                {
+                    HandleOngoing();
+                }));
+
+                #endregion
+
+                #region Complete
+                self.AddAction("Quake Finish", new CustomFsmAction(() =>
+                {
+                    HandleComplete();
+                }));
+
+
+                #endregion
 
             }
             if (self.gameObject.name == "Inv" && self.FsmName == "UI Inventory")
@@ -54,12 +107,49 @@
             }
         }
 
+        public void HandleStart()
+        {
+            currentAbility.Start();
+        }
 
+        public void HandleComplete()
+        {
+            if (!currentAbility.hasComplete()) return;
+            currentAbility.Complete(false);
+        }
 
+        public void HandleContact(GameObject go = null)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void HandleTrigger()
+        {
+            currentAbility.Trigger("BUTTON DOWN");
 
+        }
 
+        public void HandleCancel()
+        {
+            throw new NotImplementedException();
+        }
 
+        public void HandleCharge()
+        {
+            if (!currentAbility.hasCharging()) return;
+            currentAbility.Charging(() => { }, () => { });
+        }
 
+        public void HandleCharged()
+        {
+			if (!currentAbility.hasCharged()) return;
+			currentAbility.Charged();
+		}
+
+        public void HandleOngoing()
+        {
+            if (!currentAbility.hasOngoing()) return;
+            currentAbility.Ongoing();
+        }
     }
 }

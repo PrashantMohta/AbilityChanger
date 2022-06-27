@@ -29,11 +29,21 @@ namespace AbilityChanger
         public virtual bool hasCharging() => false;
 
         /// <summary>
-        /// Overrides the Charging state of an ability
+        /// Overrides the Charged state of an ability
         /// </summary>
         /// <param name="Next">Action that finishes the charging state</param>
         /// <param name="Cancel">Action that cancels the ability</param>
         public virtual void Charging(Action Next,Action Cancel) { }
+
+        /// <summary>
+        /// Does this ability have a Charged Method
+        /// </summary>
+        public virtual bool hasCharged() => false;
+
+        /// <summary>
+        /// Overrides the Charged state of an ability
+        /// </summary>
+        public virtual void Charged() { }
 
         /// <summary>
         /// Does this ability have a Cancel Method
@@ -86,6 +96,10 @@ namespace AbilityChanger
         /// </summary>
         /// <param name="wasCancelled">Denotes if the ability was cancelled</param>
         public virtual void Complete(bool wasCancelled) { }
+
+        public virtual bool hasSpawn() => false;
+        public virtual void Spawn() { }
+
 
     }
 

@@ -6,6 +6,7 @@
     public interface IChargable
     {
         public void HandleCharge();
+        public void HandleCharged();
     }
     public interface ICancellable
     {
@@ -21,10 +22,17 @@
     }
     public interface IContacting
     {
-        public void HandleContact();
+        public void HandleContact(GameObject go=null);
     }
     public interface ICompletable
     {
         public void HandleComplete();
+
     }
+    
+    public interface ISpawnable
+    {
+        public void HandleSpawn();
+    }
+
 }

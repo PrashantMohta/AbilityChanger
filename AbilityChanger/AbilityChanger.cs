@@ -18,6 +18,8 @@ namespace AbilityChanger
             { Abilities.QUAKE,new Quake()},
             { Abilities.SCREAM,new Scream()},
             {Abilities.FOCUS,new Focus()},
+            {Abilities.SUPERDASH, new SuperDash() },
+            {Abilities.DREAMNAIL, new DreamNail() },
         };
         /// <summary>
         /// Register a new ability for the given ability type

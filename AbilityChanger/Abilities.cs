@@ -14,10 +14,10 @@
         public static string QUAKE { get; } = "Quake";
         public static string FOCUS { get; } = "Focus";
         public static string DOUBLEJUMP { get; } = "DoubleJump";
-
-        // pending to implement 
         public static string DREAMNAIL { get; } = "Dream Nail";
         public static string SUPERDASH { get; } = "Super Dash";
+
+        // pending to implement 
         public static string ACIDARMOUR { get; } = "Acid Armour";
         public static string LANTERN { get; } = "Lantern";
     }

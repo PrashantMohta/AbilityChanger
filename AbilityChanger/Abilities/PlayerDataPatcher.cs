@@ -62,8 +62,13 @@ namespace AbilityChanger
             if(name == hasDash || name == canDash){
                 return AbilityChanger.AbilityMap[Abilities.DASH].hasAcquiredAbility(); 
             }
-            if(name == hasDoubleJump){
+            if (name == hasDoubleJump)
+            {
                 return AbilityChanger.AbilityMap[Abilities.DOUBLEJUMP].hasAcquiredAbility();
+            }
+            if (name == hasSuperDash)
+            {
+                return AbilityChanger.AbilityMap[Abilities.SUPERDASH].hasAcquiredAbility();
             }
 
             return orig;
