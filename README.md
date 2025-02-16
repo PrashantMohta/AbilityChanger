@@ -1,3 +1,5 @@
+Archived in favor of : https://github.com/randomscorp/AbilityChanger
+
 # AbilityChanger
 A Library Mod that allows giving the player alternative abilities to the ones they already possess, modifies inventory so that other mods don't have to.
 
